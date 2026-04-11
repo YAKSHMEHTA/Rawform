@@ -1,56 +1,43 @@
 import "./App.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  gsap.registerPlugin(ScrollTrigger);
   const textRef = useRef(null);
-  const [blur,Setblur] = useState(0);
+  const blurRef = useRef(null);
 
-  const updateBlur = (n)=>{  
-    Setblur(n)
-  }
-  let obj = {val:0}
-useEffect(() => {
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "+=1500",
+          scrub: true,
+          pin: true,
+        },
+      });
 
-  gsap.to(obj,{
-    val : 0.6,
-    scrollTrigger:{
-      markers:true,
-      trigger:".hero",
-      start:"top top",
-      end:"center top",
-      scrub:1,
-    },
-    onUpdate:()=>{
-      updateBlur(obj.val);
-    }
-  })
+      tl.to(blurRef.current, {
+        backgroundColor: "rgba(255,255,255,0.6)",
+        ease: "none",
+      }, 0);
 
-  gsap.fromTo(
-    textRef.current,
-    { backgroundPositionY: "50%" },   // fromVars — start state
-    {                                  // toVars — end state + config
-      backgroundPositionY: "-80%",
-      fontSize:"25rem",
-      ease: "none",
-      scrollTrigger: {
-       // markers: true,
-        trigger: ".hero",
-        start: "top top",
-        end: "center top",
-        scrub: 1,
-      },
-    }
-  );
-}, []);
+      tl.fromTo(textRef.current,
+        { backgroundPositionY: "50%", fontSize: "14rem" },
+        { backgroundPositionY: "-30%",backgroundSize: "100%",fontSize: "21rem", ease: "none" },
+      0);
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div className="h-[200vh] relative overflow-hidden">
+    <div className="relative">
       <div
-        className="h-screen hero w-full flex items-center justify-center"
+        className="hero h-screen w-full flex items-center justify-center overflow-hidden relative"
         style={{
           backgroundImage: `url(https://dropedition.com/images/hero5.jpg)`,
           backgroundSize: "cover",
@@ -58,18 +45,21 @@ useEffect(() => {
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="blur-div z-2 h-full w-full  top-0 absolute"
-          style={{backgroundColor:`rgba(255, 255, 255, ${blur})`}}
-        ></div>
+        {/* rgba overlay */}
+        <div
+          ref={blurRef}
+          className="absolute top-0 left-0 w-full h-full z-[2]"
+          style={{ backgroundColor: "rgba(255,255,255,0)" }}
+        />
+
         <h1
           ref={textRef}
-          className="hero-text z-100 font-black opacity-100 tracking-widest uppercase"
+          className="z-[10] font-black tracking-widest uppercase text-center"
           style={{
             backgroundImage: `url(https://dropedition.com/images/hero5.jpg)`,
-            backgroundSize: "100%", // match animation start
-            backgroundPosition: "center",
+            backgroundSize: "127.92%",
+            backgroundPosition: "center 50%",
             WebkitBackgroundClip: "text",
-            backgroundAttachment: "fixed",
             backgroundClip: "text",
             WebkitTextFillColor: "transparent",
             color: "transparent",
@@ -77,7 +67,10 @@ useEffect(() => {
         >
           RAWFORM
         </h1>
+      </div>
 
+      <div className="h-screen bg-black flex items-center justify-center text-white text-3xl">
+        Next Section
       </div>
     </div>
   );
