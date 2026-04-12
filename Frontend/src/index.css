@@ -2,3 +2,7 @@
 body{
     scroll-behavior: smooth;
 }
+
+.nav{
+    font-family: 'Courier New', Courier, monospace;
+}

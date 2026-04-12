@@ -14,21 +14,32 @@ function App() {
         scrollTrigger: {
           trigger: ".hero",
           start: "top top",
-          end: "+=1500",
-          scrub: true,
+          end: "+=1200",
+          scrub: 1.5,
           pin: true,
         },
       });
 
-      tl.to(blurRef.current, {
-        backgroundColor: "rgba(255,255,255,0.6)",
-        ease: "none",
-      }, 0);
+      tl.to(
+        blurRef.current,
+        {
+          backgroundColor: "rgba(255,255,255,0.7)",
+          ease: "none",
+        },
+        0,
+      );
 
-      tl.fromTo(textRef.current,
+      tl.fromTo(
+        textRef.current,
         { backgroundPositionY: "50%", fontSize: "14rem" },
-        { backgroundPositionY: "-30%",backgroundSize: "100%",fontSize: "21rem", ease: "none" },
-      0);
+        {
+          backgroundPositionY: "-12%",
+          backgroundSize: "90%",
+          fontSize: "21rem",
+          ease: "power1.out",
+        },
+        0,
+      );
     });
 
     return () => ctx.revert();
