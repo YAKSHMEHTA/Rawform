@@ -5,41 +5,43 @@ import { useRef, useEffect } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const textRef = useRef(null);
-  const blurRef = useRef(null);
+  const scrollImgRef = useRef(null);
+  const whiteRef = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "+=1200",
-          scrub: 1.5,
-          pin: true,
-        },
-      });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "+=1200",
+            scrub: 1.5,
+            pin: true,
+          },
+        })
 
-      tl.to(
-        blurRef.current,
-        {
-          backgroundColor: "rgba(255,255,255,0.7)",
-          ease: "none",
-        },
-        0,
-      );
-
-      tl.fromTo(
-        textRef.current,
-        { backgroundPositionY: "50%", fontSize: "14rem" },
-        {
-          backgroundPositionY: "-12%",
-          backgroundSize: "90%",
-          fontSize: "21rem",
-          ease: "power1.out",
-        },
-        0,
-      );
+        .to(
+          scrollImgRef.current,
+          {
+            backgroundPositionY: "-120%",
+            backfaceVisibility: true,
+            maskSize: "150%",
+            ease: "none",
+          },
+          0,
+        )
+        .to(
+          whiteRef.current,
+          {
+            opacity: 0.6,
+            backgroundPositionY: "-120%",
+            backfaceVisibility: true,
+            maskSize: "150%",
+            ease: "none",
+          },
+          0,
+        );
     });
 
     return () => ctx.revert();
@@ -47,37 +49,45 @@ function App() {
 
   return (
     <div className="relative">
-      <div
-        className="hero h-screen w-full flex items-center justify-center overflow-hidden relative"
-        style={{
-          backgroundImage: `url(https://dropedition.com/images/hero5.jpg)`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        {/* rgba overlay */}
-        <div
-          ref={blurRef}
-          className="absolute top-0 left-0 w-full h-full z-[2]"
-          style={{ backgroundColor: "rgba(255,255,255,0)" }}
+      <div className="hero h-screen w-full relative overflow-hidden">
+        <img
+          src="https://dropedition.com/images/hero5.jpg"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 1 }}
         />
 
-        <h1
-          ref={textRef}
-          className="z-[10] font-black tracking-widest uppercase text-center"
+        <div
+          ref={scrollImgRef}
+          className="absolute inset-0 w-full  h-full"
           style={{
+            zIndex: 2,
             backgroundImage: `url(https://dropedition.com/images/hero5.jpg)`,
-            backgroundSize: "127.92%",
+            backgroundSize: "100%",
+            backfaceVisibility: false,
             backgroundPosition: "center 50%",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            color: "transparent",
+            WebkitMaskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
+            WebkitMaskComposite: "sin",
+            WebkitMaskSize: "cover",
+            WebkitMaskPosition: "center",
+            maskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
+            maskComposite: "exclude",
+            maskSize: "100%",
+            maskPosition: "center",
           }}
-        >
-          RAWFORM
-        </h1>
+        />
+
+        <div
+          ref={whiteRef}
+          className="absolute inset-0 bg-white"
+          style={{
+            zIndex: 3,
+            opacity: 0,
+            WebkitMaskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
+            maskComposite: "intersect",
+            maskSize: "100%",
+            maskPosition: "center",
+          }}
+        />
       </div>
 
       <div className="h-screen bg-black flex items-center justify-center text-white text-3xl">
