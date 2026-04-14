@@ -2,38 +2,55 @@ import "./App.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useRef, useEffect } from "react";
-gsap.registerPlugin(ScrollTrigger);
 import Demo from "../Components/Demo";
+import Lenis from "@studio-freight/lenis";
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const scrollImgRef = useRef(null);
   const whiteRef = useRef(null);
 
   useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      smooth: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
     let ctx = gsap.context(() => {
-      let tl = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
-          //  markers:true,
           trigger: ".hero",
           start: "top top",
           end: "+=1800",
           scrub: 1.5,
           pin: true,
         },
-          ease: "power1.out",
+      });
+
+      tl.to(
+        scrollImgRef.current,
+        {
+          backgroundPositionY: "-120%",
+          backfaceVisibility: true,
+          maskSize: "150%",
+          ease: "none",
         },
         0,
       )
-      .to(
-          scrollImgRef.current,
-          {
-            backgroundPositionY: "-120%",
-            backfaceVisibility: true,
-            maskSize: "150%",
-            ease: "none",
-          },
-          0,
-        )
+
         .to(
           whiteRef.current,
           {
@@ -46,13 +63,18 @@ function App() {
           0,
         );
 
+      // 👉 now this works
       gsap.set(".next", { yPercent: 100 });
-      tl.to(".next", {
-        yPercent: 0,
-        ease: "power1.out",   
-      }, 0.6)
-    })
 
+      tl.to(
+        ".next",
+        {
+          yPercent: 0,
+          ease: "power1.out",
+        },
+        0.35,
+      );
+    });
 
     return () => ctx.revert();
   }, []);
