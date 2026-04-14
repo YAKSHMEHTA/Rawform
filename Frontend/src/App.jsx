@@ -3,6 +3,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useRef, useEffect } from "react";
 gsap.registerPlugin(ScrollTrigger);
+import Demo from "../Components/Demo";
 
 function App() {
   const scrollImgRef = useRef(null);
@@ -10,18 +11,20 @@ function App() {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "+=1200",
-            scrub: 1.5,
-            pin: true,
-          },
-        })
-
-        .to(
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          //  markers:true,
+          trigger: ".hero",
+          start: "top top",
+          end: "+=1800",
+          scrub: 1.5,
+          pin: true,
+        },
+          ease: "power1.out",
+        },
+        0,
+      )
+      .to(
           scrollImgRef.current,
           {
             backgroundPositionY: "-120%",
@@ -42,7 +45,14 @@ function App() {
           },
           0,
         );
-    });
+
+      gsap.set(".next", { yPercent: 100 });
+      tl.to(".next", {
+        yPercent: 0,
+        ease: "power1.out",   
+      }, 0.6)
+    })
+
 
     return () => ctx.revert();
   }, []);
@@ -90,9 +100,7 @@ function App() {
         />
       </div>
 
-      <div className="h-screen bg-black flex items-center justify-center text-white text-3xl">
-        Next Section
-      </div>
+      <Demo className="next"></Demo>
     </div>
   );
 }
