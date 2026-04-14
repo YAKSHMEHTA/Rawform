@@ -10,23 +10,29 @@ function App() {
   const scrollImgRef = useRef(null);
   const whiteRef = useRef(null);
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      smooth: true,
-    });
+useEffect(() => {
+  const lenis = new Lenis({
+    duration: 1.2,
+  });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
+  function raf(time) {
+    lenis.raf(time);
     requestAnimationFrame(raf);
+  }
 
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+  requestAnimationFrame(raf);
+
+
+  lenis.on("scroll", ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  return () => lenis.destroy();
+}, []);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -63,7 +69,7 @@ function App() {
           0,
         );
 
-      // 👉 now this works
+
       gsap.set(".next", { yPercent: 100 });
 
       tl.to(
