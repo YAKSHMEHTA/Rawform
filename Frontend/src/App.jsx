@@ -12,7 +12,7 @@ function App() {
 
 useEffect(() => {
   const lenis = new Lenis({
-    duration: 1.2,
+    duration: 1.8,
   });
 
   function raf(time) {
@@ -79,7 +79,8 @@ useEffect(() => {
           ease: "power1.out",
         },
         0.35,
-      );
+      )
+
     });
 
     return () => ctx.revert();
