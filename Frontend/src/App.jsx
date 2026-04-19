@@ -1,6 +1,7 @@
 import "./App.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import BuyNow from "../Components/BuyNow";
 import { useRef, useEffect } from "react";
 import Demo from "../Components/Demo";
 import Lenis from "@studio-freight/lenis";
@@ -130,6 +131,7 @@ useEffect(() => {
       </div>
 
       <Demo className="next"></Demo>
+      <BuyNow></BuyNow>
     </div>
   );
 }
