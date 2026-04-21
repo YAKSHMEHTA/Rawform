@@ -35,4 +35,10 @@ h1 {
 
 .slider {
   cursor: url('/arrow-right.svg') 16 16, pointer;
+  
 }
+
+/* .curtedimg-1 img:hover{
+  scale: 100%;
+  transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.6s;
+} */

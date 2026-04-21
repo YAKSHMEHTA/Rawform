@@ -11,29 +11,28 @@ function App() {
   const scrollImgRef = useRef(null);
   const whiteRef = useRef(null);
 
-useEffect(() => {
-  const lenis = new Lenis({
-    duration: 1.8,
-  });
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.8,
+    });
 
-  function raf(time) {
-    lenis.raf(time);
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
     requestAnimationFrame(raf);
-  }
 
-  requestAnimationFrame(raf);
+    lenis.on("scroll", ScrollTrigger.update);
 
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
 
-  lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.lagSmoothing(0);
 
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-
-  gsap.ticker.lagSmoothing(0);
-
-  return () => lenis.destroy();
-}, []);
+    return () => lenis.destroy();
+  }, []);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -70,7 +69,6 @@ useEffect(() => {
           0,
         );
 
-
       gsap.set(".next", { yPercent: 100 });
 
       tl.to(
@@ -80,8 +78,7 @@ useEffect(() => {
           ease: "power1.out",
         },
         0.35,
-      )
-
+      );
     });
 
     return () => ctx.revert();
@@ -131,7 +128,7 @@ useEffect(() => {
       </div>
 
       <Demo className="next"></Demo>
-      <BuyNow></BuyNow>
+      <BuyNow className=""></BuyNow>
     </div>
   );
 }
