@@ -42,7 +42,7 @@ useEffect(() => {
           trigger: ".hero",
           start: "top top",
           end: "+=1800",
-          scrub: 1.5,
+          scrub: 0.5,
           pin: true,
         },
       });
@@ -91,7 +91,7 @@ useEffect(() => {
     <div className="relative">
       <div className="hero h-screen w-full relative overflow-hidden">
         <img
-          src="https://dropedition.com/images/hero5.jpg"
+          src="/BGHEROIMG.jpg"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ zIndex: 1 }}
         />
@@ -101,7 +101,7 @@ useEffect(() => {
           className="absolute inset-0 w-full  h-full"
           style={{
             zIndex: 2,
-            backgroundImage: `url(https://dropedition.com/images/hero5.jpg)`,
+            backgroundImage: `url('/BGHEROIMG.jpg')`,
             backgroundSize: "100%",
             backfaceVisibility: false,
             backgroundPosition: "center 50%",
