@@ -52,8 +52,8 @@ function BuyNow() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".curted",
-        start: "top bottom",
-        end: "top top",
+        start: "+=1800px bottom",
+        end: "+=1800px top",
         scrub: 1.5,
         markers: true,
       },
@@ -63,12 +63,16 @@ function BuyNow() {
       paddingTop: "5rem",
       ease: "power3.out",
     })
+    tl.to(".pi", {
+      paddingTop: "1rem",
+      ease: "power1.in",
+    })
   }, []);
 
   return (
     <>
       <div className="bg-white curted h-[110vh] absolute overflow-hidden  w-full ">
-        <div className="px-8 pb-4 pi">Curated Pieces</div>
+        <div className="px-8 p-0 pi">Curated Pieces</div>
         <div className="flex h-full w-full">
           <div className="h-full curtedimg-1 w-1/2 overflow-hidden  origin-top-right scale-110">
             <img
