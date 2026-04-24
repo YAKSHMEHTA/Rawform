@@ -4,3 +4,10 @@
 .nav{
     font-family: 'Courier New', Courier, monospace;
 }
+
+body{
+  font-family: 'Courier New', Courier, monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
