@@ -8,8 +8,10 @@ gsap.registerPlugin(ScrollTrigger);
 function BuyNow() {
   const img1 = useRef(null);
   const img2 = useRef(null);
+  const btnLeft = useRef(null)
+  const btnRight = useRef(null)
 
-    useEffect(() => {
+  useEffect(() => {
     const lenis = new Lenis({
       duration: 1.8,
     });
@@ -40,6 +42,15 @@ function BuyNow() {
     });
   };
 
+  const buttonLeave = (ref)=>{
+    console.log(ref)
+    gsap.to(ref.current,{
+      backgroundColor:"white",
+      
+      
+    })
+  }
+
   const handelLeave = (ref) => {
     gsap.to(ref.current, {
       scale: 1.1,
@@ -61,41 +72,65 @@ function BuyNow() {
 
     tl.to(".pi", {
       paddingTop: "5rem",
-      ease: "power3.out",
-    })
+      ease: "power1.out",
+    });
     tl.to(".pi", {
       paddingTop: "1rem",
-      ease: "power1.in",
-    })
+      ease:"power4.inOut"
+    });
   }, []);
-
 
   return (
     <>
       <div className="bg-white curted h-[110vh] absolute overflow-hidden  w-full ">
         <div className="px-8 p-0 pi">Curated Pieces</div>
         <div className="flex h-full w-full">
-          <div className="h-full curtedimg-1 w-1/2 overflow-hidden relative  origin-top-right scale-110">
+          <div
+            onMouseEnter={() => handelEnter(img1)}
+            onMouseLeave={() => handelLeave(img1)}
+            className="h-full curtedimg-1 w-1/2 overflow-hidden relative  origin-top-right scale-110"
+          >
             <img
               ref={img1}
-              onMouseEnter={() => handelEnter(img1)}
-              onMouseLeave={() => handelLeave(img1)}
               src="/hr1.webp"
               className="h-full scale-110 w-full object-cover"
               alt=""
             />
-            <button className="z-99999 absolute bottom-41 w-43 h-10 text-black  left-1/2 -translate-x-1/2   bg-white">BUY NOW</button>
+            <button
+              onMouseEnter={() => {
+                handelEnter(img1);
+              }}
+              ref={btnLeft}
+              className="z-99999 absolute bottom-41 w-43 h-10 text-black hover:bg-[#47d7ac] 
+               transition-all ease-out  duration-500  left-1/2 -translate-x-1/2   bg-white"
+            >
+              Buy Now
+            </button>
           </div>
-          <div className="h-full relative overflow-hidden w-1/2">
+          <div
+          
+            onMouseEnter={() => handelEnter(img2)}
+            onMouseLeave={() => handelLeave(img2)}
+            className="h-full relative overflow-hidden w-1/2"
+          >
             <img
               ref={img2}
               src="/hr2.webp"
-              onMouseEnter={() => handelEnter(img2)}
-              onMouseLeave={() => handelLeave(img2)}
               className="h-full scale-110 w-full overflow-hidden object-cover origin-top-right "
               alt=""
             />
-            <button className="z-99999 w-43 absolute bottom-25 h-10 left-1/2 text-black -translate-x-1/2  bg-white">BUY NOW</button>
+            <button
+              ref={btnRight}
+              onMouseEnter={() => {
+                handelEnter(img2);
+                
+              }}
+              onMouseLeave={()=>{buttonEnter(btnRight)}}
+              className="z-99999 hover:bg-[#47d7ac]  transition-all ease-out  duration-500 w-43
+               absolute bottom-25 h-10 left-1/2 text-black -translate-x-1/2  bg-white"
+            >
+              Buy Now
+            </button>
           </div>
         </div>
       </div>
