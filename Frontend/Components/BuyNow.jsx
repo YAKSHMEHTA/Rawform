@@ -8,8 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 function BuyNow() {
   const img1 = useRef(null);
   const img2 = useRef(null);
-  const btnLeft = useRef(null)
-  const btnRight = useRef(null)
+  const btnLeft = useRef(null);
+  const btnRight = useRef(null);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -35,6 +35,18 @@ function BuyNow() {
   }, []);
 
   const handelEnter = (ref) => {
+    console.log(ref.current.alt)
+    if (ref.current.alt == 'w') {
+      gsap.to(".btn-1", {
+        opacity: 1,
+        ease:"Power4.out",
+      });
+    }else{
+      gsap.to(".btn-2", {
+        opacity: 1,
+        ease:"Power4.out",
+      });  
+    }
     gsap.to(ref.current, {
       scale: 1,
       duration: 0.5,
@@ -42,16 +54,26 @@ function BuyNow() {
     });
   };
 
-  const buttonLeave = (ref)=>{
-    console.log(ref)
-    gsap.to(ref.current,{
-      backgroundColor:"white",
-      
-      
-    })
-  }
+  const buttonLeave = (ref) => {
+    gsap.to(ref.current, {
+      backgroundColor: "white",
+    });
+  };
 
   const handelLeave = (ref) => {
+
+    if (ref.current.alt == 'w') {
+      gsap.to(".btn-1", {
+        opacity: 0,
+        ease:"Power4.out",
+      });
+    }else{
+      gsap.to(".btn-2", {
+        opacity: 0,
+        ease:"Power4.out",
+      });  
+    }
+
     gsap.to(ref.current, {
       scale: 1.1,
       duration: 0.5,
@@ -76,7 +98,7 @@ function BuyNow() {
     });
     tl.to(".pi", {
       paddingTop: "1rem",
-      ease:"power4.inOut"
+      ease: "power4.inOut",
     });
   }, []);
 
@@ -94,21 +116,20 @@ function BuyNow() {
               ref={img1}
               src="/hr1.webp"
               className="h-full scale-110 w-full object-cover"
-              alt=""
+              alt="w"
             />
             <button
               onMouseEnter={() => {
                 handelEnter(img1);
               }}
               ref={btnLeft}
-              className="z-99999 absolute bottom-41 w-43 h-10 text-black hover:bg-[#47d7ac] 
+              className="z-99999 opacity-0 btn-1 absolute bottom-41 w-43 h-10 text-black hover:bg-[#47d7ac] 
                transition-all ease-out  duration-500  left-1/2 -translate-x-1/2   bg-white"
             >
               Buy Now
             </button>
           </div>
           <div
-          
             onMouseEnter={() => handelEnter(img2)}
             onMouseLeave={() => handelLeave(img2)}
             className="h-full relative overflow-hidden w-1/2"
@@ -123,10 +144,11 @@ function BuyNow() {
               ref={btnRight}
               onMouseEnter={() => {
                 handelEnter(img2);
-                
               }}
-              onMouseLeave={()=>{buttonEnter(btnRight)}}
-              className="z-99999 hover:bg-[#47d7ac]  transition-all ease-out  duration-500 w-43
+              onMouseLeave={() => {
+                buttonEnter(btnRight);
+              }}
+              className="z-99999 hover:bg-[#47d7ac] opacity-0  btn-2 transition-all ease-out  duration-500 w-43
                absolute bottom-25 h-10 left-1/2 text-black -translate-x-1/2  bg-white"
             >
               Buy Now
