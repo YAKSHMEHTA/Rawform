@@ -35,17 +35,17 @@ function BuyNow() {
   }, []);
 
   const handelEnter = (ref) => {
-    console.log(ref.current.alt)
-    if (ref.current.alt == 'w') {
+    console.log(ref.current.alt);
+    if (ref.current.alt == "w") {
       gsap.to(".btn-1", {
         opacity: 1,
-        ease:"Power4.out",
+        ease: "Power4.out",
       });
-    }else{
+    } else {
       gsap.to(".btn-2", {
         opacity: 1,
-        ease:"Power4.out",
-      });  
+        ease: "Power4.out",
+      });
     }
     gsap.to(ref.current, {
       scale: 1,
@@ -61,17 +61,16 @@ function BuyNow() {
   };
 
   const handelLeave = (ref) => {
-
-    if (ref.current.alt == 'w') {
+    if (ref.current.alt == "w") {
       gsap.to(".btn-1", {
         opacity: 0,
-        ease:"Power4.out",
+        ease: "Power4.out",
       });
-    }else{
+    } else {
       gsap.to(".btn-2", {
         opacity: 0,
-        ease:"Power4.out",
-      });  
+        ease: "Power4.out",
+      });
     }
 
     gsap.to(ref.current, {
@@ -82,13 +81,45 @@ function BuyNow() {
   };
 
   useEffect(() => {
+    gsap.fromTo(
+      ".wrap",
+      {
+        clipPath: "inset(0 0 100% 0)",
+      },
+      {
+        clipPath: "inset(0 0 0% 0)",
+        ease: "power4.in",
+        duration: 1,
+        stagger:0.15,
+        scrollTrigger: {
+          trigger: ".curted",
+          markers: true,
+          start: "+=1800px center",
+        },
+      },
+    );
+
+    gsap.fromTo(
+      ".wrap img",
+      { y: -60 },
+      {
+        y: 0,
+        ease: "power3.inOut",
+        scrollTrigger: {
+          trigger: ".curted",
+          start: "+=1800px center",
+          end: "+=1800px top",
+          scrub: 1,
+        },
+      },
+    );
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".curted",
-        start: "+=1800px bottom",
+        start: "+=1800px center",
         end: "+=1800px top",
-        scrub: 1.5,
-        markers: true,
+        scrub: 1,
       },
     });
 
@@ -110,14 +141,17 @@ function BuyNow() {
           <div
             onMouseEnter={() => handelEnter(img1)}
             onMouseLeave={() => handelLeave(img1)}
-            className="h-full curtedimg-1 w-1/2 overflow-hidden relative  origin-top-right scale-110"
+            className="h-full curtedimg-1 w-1/2 overflow-hidden relative  
+            origin-top-right scale-110 cimg"
           >
-            <img
-              ref={img1}
-              src="/hr1.webp"
-              className="h-full scale-110 w-full object-cover"
-              alt="w"
-            />
+            <div className="w-full h-full wrap  overflow-hidden">
+              <img
+                ref={img1}
+                src="/hr1.webp"
+                className="h-full scale-110 w-full object-cover"
+                alt="w"
+              />
+            </div>
             <button
               onMouseEnter={() => {
                 handelEnter(img1);
@@ -132,14 +166,16 @@ function BuyNow() {
           <div
             onMouseEnter={() => handelEnter(img2)}
             onMouseLeave={() => handelLeave(img2)}
-            className="h-full relative overflow-hidden w-1/2"
+            className="h-full  relative overflow-hidden w-1/2"
           >
-            <img
-              ref={img2}
-              src="/hr2.webp"
-              className="h-full scale-110 w-full overflow-hidden object-cover origin-top-right "
-              alt=""
-            />
+            <div className="w-full h-full wrap  overflow-hidden">
+              <img
+                ref={img2}
+                src="/hr2.webp"
+                className="h-full scale-110 w-full overflow-hidden object-cover origin-top-right "
+                alt=""
+              />
+            </div>
             <button
               ref={btnRight}
               onMouseEnter={() => {
