@@ -3,6 +3,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import BuyNow from "../Components/BuyNow";
 import { useRef, useEffect } from "react";
+import Text from "../Components/Text";
 import Demo from "../Components/Demo";
 import Lenis from "@studio-freight/lenis";
 gsap.registerPlugin(ScrollTrigger);

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
+import Text from "./Text";
 import Nice from "./Nice";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -90,7 +91,7 @@ function BuyNow() {
         clipPath: "inset(0 0 0% 0)",
         ease: "power4.in",
         duration: 1,
-        stagger:0.15,
+        stagger:0.25,
         scrollTrigger: {
           trigger: ".curted",
           markers: true,
@@ -117,7 +118,7 @@ function BuyNow() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".curted",
-        start: "+=1800px center",
+        start: "+=1800px bottom",
         end: "+=1800px top",
         scrub: 1,
       },
@@ -129,13 +130,13 @@ function BuyNow() {
     });
     tl.to(".pi", {
       paddingTop: "1rem",
-      ease: "power4.inOut",
+      ease: "power1.in",
     });
   }, []);
 
   return (
     <>
-      <div className="bg-white curted h-[110vh] absolute overflow-hidden  w-full ">
+      <div className="bg-white curted h-[110vh] relative overflow-hidden  w-full ">
         <div className="px-8 p-0 pi">Curated Pieces</div>
         <div className="flex h-full w-full">
           <div
@@ -191,8 +192,11 @@ function BuyNow() {
             </button>
           </div>
         </div>
+        
       </div>
+      <Text ></Text>
     </>
+    
   );
 }
 
