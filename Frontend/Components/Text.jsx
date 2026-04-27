@@ -1,32 +1,70 @@
 import React from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useRef, useEffect } from "react";
+gsap.registerPlugin(ScrollTrigger);
+
+function SplitText({ text, className }) {
+  return (
+    <p className={className}>
+      {text.split("").map((char, i) => (
+        <span
+          key={i}
+          className="char"
+          style={{ display: "inline-block", paddingRight: "2.7rem" }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </span>
+      ))}
+    </p>
+  );
+}
 
 function Text() {
+
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          markers: true,
+          trigger: '.texts',
+          start: "+=3500 60%",
+          end: "bottom top",
+        },
+      });
+      tl.to(".texts .char", {
+        paddingRight: 0,
+        ease: "power3.out",
+        duration: 2,
+        stagger: 0.008,
+      });
+    }, '.texts');
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="h-screen w-full relative   overflow-clip">
+    <div
+      className="h-screen  w-full relative   overflow-clip"
+    >
       <div
-        className="trigger relative z-40 h-full  w-full felx flex-col
-            justify-between px-40 py-25 max-xl:px-5
-        "
+        className="trigger texts relative z-40 h-full  w-full felx flex-col
+            justify-between px-40 py-25 max-xl:px-5"
       >
         <div className="w-full leading-none">
-          <p
-            className="heading-3 font-light whitespace-nowrap
-         text-[#889E9E] max-sm:text-[1.125rem] "
-          >
-            .make yourself comfortable
-          </p>
-          <p
-            className="heading-3 font-light whitespace-nowrap
-         text-[#889E9E] max-sm:text-[1.125rem]"
-          >
-            trust your body and feel free
-          </p>
-          <p
-            className="heading-3 font-light whitespace-nowrap
-         text-[#889E9E] max-sm:text-[1.125rem]"
-          >
-            in every self manifestation+
-          </p>
+          <SplitText
+            text=".make yourself comfortable"
+            className="heading-3  text-2xl font-light whitespace-nowrap text-[#889E9E] max-sm:text-[1.125rem]"
+          ></SplitText>
+
+          <SplitText
+            text="trust your body and feel free"
+            className="heading-3 text-2xl font-light whitespace-nowrap text-[#889E9E] max-sm:text-[1.125rem]"
+          ></SplitText>
+          <SplitText
+            text="in every self manifestation+"
+            className="heading-3 text-2xl font-light whitespace-nowrap text-[#889E9E] max-sm:text-[1.125rem]"
+          ></SplitText>
         </div>
         <div className="w-full h-full flex flex-col-reverse leading-none text-white text-[8rem] items-end ">
           <p
@@ -45,7 +83,6 @@ function Text() {
             className="heading-3 font-light whitespace-nowrap
           max-sm:text-[1.125rem]"
           >
-
             modern twist
           </p>
         </div>

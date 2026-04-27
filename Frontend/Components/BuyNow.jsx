@@ -94,7 +94,7 @@ function BuyNow() {
         stagger:0.25,
         scrollTrigger: {
           trigger: ".curted",
-          markers: true,
+//          markers: true,
           start: "+=1800px center",
         },
       },

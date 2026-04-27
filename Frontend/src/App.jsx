@@ -13,27 +13,20 @@ function App() {
   const whiteRef = useRef(null);
 
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.8,
-    });
+  const lenis = new Lenis({ duration: 1.8 });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  lenis.on("scroll", ScrollTrigger.update);
 
-    requestAnimationFrame(raf);
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+  gsap.ticker.lagSmoothing(0);
 
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-
-    return () => lenis.destroy();
-  }, []);
+  return () => {
+    lenis.destroy();
+    gsap.ticker.remove((time) => lenis.raf(time * 1000));
+  };
+}, []);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
