@@ -1,17 +1,22 @@
 import React from "react";
+import "../src/App.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useRef, useEffect } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
-function SplitText({ text, className }) {
+function SplitText({ text, className, direction = "left" }) {
   return (
     <p className={className}>
       {text.split("").map((char, i) => (
         <span
           key={i}
           className="char"
-          style={{ display: "inline-block", paddingRight: "2.7rem" }}
+          style={{
+            display: "inline-block",
+            paddingRight: direction === "left" ? "2.7rem" : 0,
+            paddingLeft: direction === "right" ? "4.7rem" : 0,
+          }}
         >
           {char === " " ? "\u00A0" : char}
         </span>
@@ -21,37 +26,44 @@ function SplitText({ text, className }) {
 }
 
 function Text() {
-
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           markers: true,
-          trigger: '.texts',
+          trigger: ".texts",
           start: "+=3500 60%",
           end: "bottom top",
         },
       });
-      tl.to(".texts .char", {
+      tl.to(".up-text .char", {
+        transformOrigin: "right",
         paddingRight: 0,
         ease: "power3.out",
         duration: 2,
         stagger: 0.008,
       });
-    }, '.texts');
+      tl.to(
+        ".mordern-text .char",
+        {
+          paddingLeft: 0,
+          ease: "power3.out",
+          duration: 2,
+          stagger: 0.008,
+        },
+        "-=1.2s",
+      );
+    }, ".texts");
     return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      className="h-screen  w-full relative   overflow-clip"
-    >
+    <div className="h-screen  w-full relative   overflow-clip">
       <div
         className="trigger texts relative z-40 h-full  w-full felx flex-col
             justify-between px-40 py-25 max-xl:px-5"
       >
-        <div className="w-full leading-none">
+        <div className="w-full up-text leading-none">
           <SplitText
             text=".make yourself comfortable"
             className="heading-3  text-2xl font-light whitespace-nowrap text-[#889E9E] max-sm:text-[1.125rem]"
@@ -66,25 +78,27 @@ function Text() {
             className="heading-3 text-2xl font-light whitespace-nowrap text-[#889E9E] max-sm:text-[1.125rem]"
           ></SplitText>
         </div>
-        <div className="w-full h-full flex flex-col-reverse leading-none text-white text-[8rem] items-end ">
-          <p
-            className="heading-3 font-light whitespace-nowrap
-          max-sm:text-[1.125rem]"
-          >
-            on classical
-          </p>
-          <p
-            className="heading-3 font-light whitespace-nowrap
-          max-sm:text-[1.125rem]"
-          >
-            elegance
-          </p>
-          <p
-            className="heading-3 font-light whitespace-nowrap
-          max-sm:text-[1.125rem]"
-          >
-            modern twist
-          </p>
+        <div className="w-full tracking-widest relative  h-full t flex flex-col-reverse leading-none text-white text-[8rem] items-end ">
+          <div className="absolute mordern-text right-[-180px]">
+            <SplitText
+              className="heading-3 left-0   font-extralight whitespace-nowrap
+          max-sm:text-[1.125rem] "
+              text={"modern twist"}
+              direction={"right"}
+            ></SplitText>
+            <SplitText
+              className="heading-3 left-0  font-extralight whitespace-nowrap
+          max-sm:text-[1.125rem] "
+              text={"on classical"}
+              direction={"right"}
+            ></SplitText>
+            <SplitText
+              className="heading-3  font-extralight whitespace-nowrap
+          max-sm:text-[1.125rem] "
+              text={"elegance"}
+              direction={"right"}
+            ></SplitText>
+          </div>
         </div>
       </div>
 

@@ -42,3 +42,8 @@ h1 {
   scale: 100%;
   transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.6s;
 } */
+
+.mordern-text{
+  font-weight: 100;
+  font-family: sans-serif;
+}
