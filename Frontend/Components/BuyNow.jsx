@@ -3,6 +3,7 @@ import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
 import Text from "./Text";
 import Nice from "./Nice";
+import LineUP from "./LineUP";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -195,6 +196,7 @@ function BuyNow() {
         
       </div>
       <Text ></Text>
+      <LineUP></LineUP>
     </>
     
   );

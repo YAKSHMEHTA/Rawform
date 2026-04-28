@@ -52,15 +52,16 @@ function Text() {
           stagger: 0.008,
         },
         "-=1.2s",
-      );
+      )
+
     }, ".texts");
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="h-screen  w-full relative   overflow-clip">
+    <div className="h-screen pb-10 outer w-full overflow-clip relative   ">
       <div
-        className="trigger texts relative z-40 h-full  w-full felx flex-col
+        className="trigger texts relative z-40 h-full   w-full felx flex-col
             justify-between px-40 py-25 max-xl:px-5"
       >
         <div className="w-full up-text leading-none">
