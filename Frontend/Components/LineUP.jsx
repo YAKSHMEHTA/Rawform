@@ -3,11 +3,11 @@ import Card from './Card'
 
 function LineUP() {
   return (
-    <div className='h-[90vh] gap-2 relative flex p-35  bg-cyan-900'>
-      <Card classname={'h-96 w-80 overflow-clip'} imgSrc={'/text-bg.jpg'}></Card>
-      <Card classname={'h-96 w-80 overflow-clip'} imgSrc={'/hr2.webp'}></Card>
-      <Card classname={'h-96 w-80 overflow-clip'} imgSrc={'/hr1.webp'}></Card>
-      <Card classname={'h-96 w-80 overflow-clip'} imgSrc={'/hr1.webp'}></Card>
+    <div className='h-screen w-full gap-2 relative pt-30 flex px-20  bg-white'>
+      <Card btn={`true`} classname={'h-120 w-160 overflow-clip'} imgSrc={'/hrpanel1.webp'}></Card>
+      <Card btn={`true`} classname={'h-120 w-160 overflow-clip'} imgSrc={'/hr2.webp'}></Card>
+      <Card btn={`true`} classname={'h-120 w-160 overflow-clip'} imgSrc={'/hrpanel2.webp'}></Card>
+      <Card btn={`true`} classname={'h-120 w-160 overflow-clip'} imgSrc={'/hrpanel3.webp'}></Card>
     </div>
   )
 }

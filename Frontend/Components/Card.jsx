@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger)
 function Card({
   classname="",
   imgSrc,
+  btn,
 }){
   const imgRef = useRef(null)
   function HandelEnter(){
@@ -26,8 +27,14 @@ function Card({
   }
 
   return (
-    <div className={classname}>
-      <img ref={imgRef} src={imgSrc} onMouseLeave={HandelLeave} className='w-full h-full object-cover id scale-110' onMouseOver={HandelEnter} alt="" />
+    <div className={ ` relative ${classname}`}>
+      <img ref={imgRef} src={imgSrc} onMouseLeave={HandelLeave} 
+      className='w-full h-full object-cover id scale-110' 
+      onMouseOver={HandelEnter} alt="" />
+      { btn && <button 
+      className='bg-cyan-700 absolute bottom-2/12 left-1/2  -translate-x-1/2 z-50
+        w-63 h-13'
+      >BUY NOW</button>}
     </div>
   )
 }
