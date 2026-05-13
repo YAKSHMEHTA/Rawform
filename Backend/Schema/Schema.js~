@@ -1,0 +1,52 @@
+import Schema from 'mongoose';
+import Model from 'mongoose';
+
+
+const Userschmea = new Schema({
+{
+  _id: ObjectId,
+
+  name: String,
+  email: String,
+  password: String,
+  phone: String,
+
+  addresses: [
+    {
+      _id: ObjectId,
+      fullName: String,
+      phone: String,
+      street: String,
+      city: String,
+      state: String,
+      country: String,
+      pincode: String,
+      isDefault: Boolean
+    }
+  ],
+
+  wishlist: [ObjectId], 
+
+  cart: [
+    {
+      productId: ObjectId,
+      size: String,
+      color: String,
+      quantity: Number
+    }
+  ],
+
+  role: String, 
+
+  createdAt: Date,
+  updatedAt: Date
+}
+  ],
+
+  "role": "customer",
+  "createdAt": Date,
+  "updatedAt": Date
+})
+
+const user
+

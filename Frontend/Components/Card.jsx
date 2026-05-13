@@ -27,7 +27,8 @@ function Card({
   }
 
   return (
-    <div className={ ` relative ${classname}`}>
+    <div className={ ` relative ${classname}`}  >
+      
       <img ref={imgRef} src={imgSrc} onMouseLeave={HandelLeave} 
       className='w-full h-full object-cover id scale-110' 
       onMouseOver={HandelEnter} alt="" />
