@@ -9,18 +9,12 @@ function Card({
   imgSrc,
   btn,
 }){
-    const btnref = useRef(null)
   const imgRef = useRef(null)
   function HandelEnter(){
     gsap.to(imgRef.current,{
       scale:1,
       duration:0.45,
-      ease:"power3.Inout",
-    })
-    gsap.to(btnref.current,{
-      opacity:1,
-      duration:0.45,
-      ease:"power3.Inout",
+      ease:"power3.out",
     })
   }
 
@@ -30,22 +24,16 @@ function Card({
       duration:0.45,
       ease:"power3.out",
     })
-    gsap.to(btnref.current,{
-      opacity:0,
-      duration:0.65,
-      ease:"power3.Inout",
-    })
   }
 
   return (
-    <div onMouseOver={HandelEnter} onMouseLeave={HandelLeave} className={ ` relative ${classname}`}  >
+    <div on className={ ` relative ${classname}`}  >
       
-      <img ref={imgRef} src={imgSrc}  
+      <img ref={imgRef} src={imgSrc} onMouseLeave={HandelLeave} 
       className='w-full h-full object-cover id scale-110' 
-      onMouseOver={HandelEnter}  alt="" />
-      { btn  && <button 
-        ref={btnref}
-        className='bg-white absolute bottom-2/12 left-1/2 opacity-0 hover:bg-[#47d7ac]  -translate-x-1/2 z-50
+      onMouseOver={HandelEnter} alt="" />
+      { btn && <button 
+      className='bg-cyan-700 absolute bottom-2/12 left-1/2  -translate-x-1/2 z-50
         w-63 h-13'
       >BUY NOW</button>}
     </div>
