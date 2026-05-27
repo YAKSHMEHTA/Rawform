@@ -30,7 +30,7 @@ function Text() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
-          markers: true,
+//          markers: true,
           trigger: ".texts",
           start: "+=3500 60%",
           end: "bottom top",
