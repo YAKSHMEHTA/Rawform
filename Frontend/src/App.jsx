@@ -6,6 +6,7 @@ import { useRef, useEffect } from "react";
 import Text from "../Components/Text";
 import Demo from "../Components/Demo";
 import Lenis from "@studio-freight/lenis";
+import Footer from "./Footer";
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
@@ -123,6 +124,7 @@ function App() {
 
       <Demo className="next"></Demo>
       <BuyNow className=""></BuyNow>
+      <Footer></Footer>
     </div>
   );
 }

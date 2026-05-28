@@ -55,7 +55,6 @@ const thenVars =
           duration: 1.2,
           scrollTrigger: {
             trigger: parref.current,
-            markers: true,
             stagger:0.25,
             start: "+=1300px",
           },
