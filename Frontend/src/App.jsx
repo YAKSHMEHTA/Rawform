@@ -80,6 +80,8 @@ function App() {
   }, []);
 
   return (
+    
+
     <div className="relative">
       <div className="hero h-screen w-full relative overflow-hidden">
         <img
