@@ -1,134 +1,22 @@
-import "./App.css";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import BuyNow from "../Components/BuyNow";
-import { useRef, useEffect } from "react";
-import Text from "../Components/Text";
-import Demo from "../Components/Demo";
-import Lenis from "@studio-freight/lenis";
-import Footer from "./Footer";
-gsap.registerPlugin(ScrollTrigger);
+import React from 'react'
+import Hero from '../Components/Hero'
+import Demo from '../Components/Demo'
+import BuyNow from '../Components/BuyNow'
+import Text from '../Components/Text'
+import LineUP from '../Components/LineUP'
+import Footer from './Footer'
 
 function App() {
-  const scrollImgRef = useRef(null);
-  const whiteRef = useRef(null);
-
-  useEffect(() => {
-  const lenis = new Lenis({ duration: 1.8 });
-
-  lenis.on("scroll", ScrollTrigger.update);
-
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-  gsap.ticker.lagSmoothing(0);
-
-  return () => {
-    lenis.destroy();
-    gsap.ticker.remove((time) => lenis.raf(time * 1000));
-  };
-}, []);
-
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "+=1800",
-          scrub: 0.5,
-          pin: true,
-        },
-      });
-
-      tl.to(
-        scrollImgRef.current,
-        {
-          backgroundPositionY: "-120%",
-          backfaceVisibility: true,
-          maskSize: "150%",
-          ease: "none",
-        },
-        0,
-      )
-
-        .to(
-          whiteRef.current,
-          {
-            opacity: 0.6,
-            backgroundPositionY: "-120%",
-            backfaceVisibility: true,
-            maskSize: "150%",
-            ease: "none",
-          },
-          0,
-        );
-
-      gsap.set(".next", { yPercent: 100 });
-
-      tl.to(
-        ".next",
-        {
-          yPercent: 0,
-          ease: "power1.out",
-        },
-        0.35,
-      );
-    });
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    
-
-    <div className="relative">
-      <div className="hero h-screen w-full relative overflow-hidden">
-        <img
-          src="/BGHEROIMG.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: 1 }}
-        />
-
-        <div
-          ref={scrollImgRef}
-          className="absolute inset-0 w-full  h-full"
-          style={{
-            zIndex: 2,
-            backgroundImage: `url('/BGHEROIMG.jpg')`,
-            backgroundSize: "100%",
-            backfaceVisibility: false,
-            backgroundPosition: "center 50%",
-            WebkitMaskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
-            WebkitMaskComposite: "sin",
-            WebkitMaskSize: "cover",
-            WebkitMaskPosition: "center",
-            maskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
-            maskComposite: "exclude",
-            maskSize: "100%",
-            maskPosition: "center",
-          }}
-        />
-
-        <div
-          ref={whiteRef}
-          className="absolute inset-0 bg-white"
-          style={{
-            zIndex: 3,
-            opacity: 0,
-            WebkitMaskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
-            maskComposite: "intersect",
-            maskSize: "100%",
-            maskPosition: "center",
-          }}
-        />
-      </div>
-
-      <Demo className="next"></Demo>
-      <BuyNow className=""></BuyNow>
+    <div>
+      <Hero></Hero>
+      <Demo></Demo>
+      <BuyNow></BuyNow>
+      <Text></Text>
+      <LineUP></LineUP>
       <Footer></Footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,23 +1,27 @@
-import React from 'react'
-import gsap from 'gsap'
+import React from "react";
+import gsap from "gsap";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-
-  const NavColor = ()=>{
-    gsap.to(".nav",{
+  const NavColor = () => {
+    gsap.to(".nav", {
       backgroundColor: "rgba(255,255,255,1)",
-    })
-  }
+    });
+  };
 
-  const NavColor1 = ()=>{
-    gsap.to(".nav",{
+  const NavColor1 = () => {
+    gsap.to(".nav", {
       backgroundColor: "rgba(255,255,255,0)",
-    })
-  }
+    });
+  };
 
   return (
-    <div onMouseOver={NavColor} onMouseLeave={NavColor1} className='nav px-8 py-8 fixed w-full flex justify-between items-center z-10'>
-      
+    <div
+      onMouseOver={NavColor}
+      onMouseLeave={NavColor1}
+      className="nav px-8 py-6 fixed w-full flex justify-between
+     items-center z-10"
+    >
       {/* Logo */}
       <div>
         <a href="">YAKSH</a>
@@ -25,7 +29,7 @@ function Navbar() {
 
       {/* Center Links */}
       <div className="flex gap-15">
-        <a href="">SHOP</a>
+        <Link to="/shop">SHOP</Link>
         <a href="">ABOUT</a>
         <a href="">CONTACT</a>
         <a href="">STOCKIST</a>
@@ -36,9 +40,8 @@ function Navbar() {
         <a href="">BAG</a>
         <a href="">PROFILE</a>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

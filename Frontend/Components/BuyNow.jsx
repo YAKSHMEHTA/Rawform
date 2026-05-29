@@ -195,8 +195,6 @@ function BuyNow() {
         </div>
         
       </div>
-      <Text ></Text>
-      <LineUP></LineUP>
     </>
     
   );

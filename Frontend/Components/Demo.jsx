@@ -24,31 +24,30 @@ function Demo() {
     });
   }, []);
 
-useEffect(() => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: sliderRef.current,
-      start: "80% bottom ",
-      end: "bottom top",
-      scrub: 1.5,
-      markers:true
-    },
-  });
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sliderRef.current,
+        start: "50% bottom ",
+        end: "50% top",
+        scrub: 1.5,
+        markers: true,
+      },
+    });
 
-  tl.fromTo(
-    ".slider-2",
-    { x: -2400, y: 0 },
-    { x: -2400, y: "4rem", ease: "power4.out" }
-  ).to(".slider-2", {
-    x: -2400,
-    y: "-1rem",
-    ease: "power4.in",
-  })
-
-}, []);
+    tl.fromTo(
+      ".slider-2",
+      { x: -2400, y: 0 },
+      { x: -2400, y: "4rem", ease: "power4.out" },
+    ).to(".slider-2", {
+      x: -2400,
+      y: "-1rem",
+      ease: "power1.in",
+    });
+  }, []);
 
   return (
-    <div className="absolute top-0">
+    <div className=" absolute top-0  ">
       <img
         ref={cRef}
         src="/arrow-right.svg"
@@ -68,7 +67,7 @@ useEffect(() => {
       <div
         ref={sliderRef}
         style={{ cursor: "none" }}
-        className="next h-[120vh] flex slider fixed   left-0 w-full  bg-white items-center 
+        className="next h-[120vh] flex slider overflow-x-hidden fixed  overflow-y-clip left-0 w-full  bg-white items-center 
         justify-center text-white text-3xl"
       >
         <div className="slider-2 py-2 gap-75   w-full flex">
