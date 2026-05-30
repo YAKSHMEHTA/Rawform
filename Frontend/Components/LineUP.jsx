@@ -10,12 +10,14 @@ function LineUP() {
         <Card
           btn={true}
           ani={true}
+          px={"+=1300px"}
           st={'top'}
           classname={"h-120 w-160 overflow-clip"}
           imgSrc={"/hrpanel1.webp"}
         />
         <Card
           btn={true}
+          px={"+=1300px"}
           st={'bt'}
           ani={true}
           classname={"h-120 w-160 overflow-clip"}
@@ -24,6 +26,7 @@ function LineUP() {
         <Card
           btn={true}
           st={'top'}
+          px={"+=1300px"}
           ani={true}
           classname={"h-120 w-160 overflow-clip"}
           imgSrc={"/hrpanel2.webp"}
@@ -31,6 +34,7 @@ function LineUP() {
         <Card
           btn={true}
           st={'bt'}
+          px={"+=1300px"}
           ani={true}
           classname={"h-120 w-160 overflow-clip"}
           imgSrc={"/hrpanel3.webp"}
@@ -50,6 +54,7 @@ function LineUP() {
           <div className="flex pl-10  ">
             <Card
               btn={true}
+              px={"+=1300px"}
               ani={true}
               st={'top'}
               end={'bottom'}
@@ -63,6 +68,7 @@ function LineUP() {
               return (
                 <Card
                 ani={true}
+                px={"+=1300px"}
                 st={idx % 2 === 0 ? "top" : "bottom"}
                 key={idx}
                   btn={false}

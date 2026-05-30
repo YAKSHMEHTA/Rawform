@@ -4,7 +4,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Card({ classname = "", imgSrc, btn, ani, st, end }) {
+function Card({ classname = "", imgSrc, btn, ani, st, end ,px}) {
   const btnref = useRef(null);
   const parref = useRef(null)
   const imgRef = useRef(null);
@@ -51,12 +51,13 @@ const thenVars =
         },
         {
           ...thenVars,
-          ease: "power3.inOut",
+          ease: "power2.inOut",
           duration: 1.2,
           scrollTrigger: {
             trigger: parref.current,
             stagger:0.25,
-            start: "+=1300px",
+            markers:true,
+            start: px,
           },
         },
       );
