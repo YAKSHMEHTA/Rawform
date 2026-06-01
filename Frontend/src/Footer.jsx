@@ -1,12 +1,13 @@
 import React from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import './App.css'
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Footer() {
   return (
-    <div className="h-[130vh] w-full relative pt-20 ">
+    <div className="h-[130vh] footer w-full relative pt-20 ">
       <video
         className="absolute top-0 left-0 h-full w-full object-cover"
         src="https://dropedition.com/videos/footer-video.mp4"
@@ -16,9 +17,10 @@ function Footer() {
         playsInline
         preload="auto"
       />
-      <div className="absolute   h-full w-full py-20 px-20  top-0 left-0">
+
+      <div className="absolute inrfooter  h-full w-full py-20 px-20  top-0 left-0">
         <div className="bg-white/20 backdrop-blur-lg border border-white/20 h-full w-full">
-          <div className="w-full py-20 flex gap-20 px-20">
+          <div className="w-full py-20 footerflex flex gap-20 px-20">
             <div className="drops">
               <h2 className=" text-4xl">DROPS</h2>
               <div className="w-full pt-10 gap-4 flex flex-col ">

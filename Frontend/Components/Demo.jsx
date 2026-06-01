@@ -31,7 +31,7 @@ function Demo() {
         start: "50% bottom ",
         end: "50% top",
         scrub: 1.5,
-        markers: true,
+      //  markers: true,
       },
     });
 
@@ -47,7 +47,7 @@ function Demo() {
   }, []);
 
   return (
-    <div className=" absolute top-0  ">
+    <div className="democomp absolute top-0  ">
       <img
         ref={cRef}
         src="/arrow-right.svg"

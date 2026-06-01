@@ -1,5 +1,6 @@
 import React from "react";
 import gsap from "gsap";
+import '../src/App.css'
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -20,7 +21,7 @@ function Navbar() {
       onMouseOver={NavColor}
       onMouseLeave={NavColor1}
       className="nav px-8 py-6 fixed w-full flex justify-between
-     items-center z-10"
+     items-center z-10 size-max:bg-red-800"
     >
       {/* Logo */}
       <div>

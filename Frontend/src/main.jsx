@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 import App from "./App.jsx";
+import './App.css'
 import "./index.css";
 import Shop from "../Components/Shop.jsx";
 

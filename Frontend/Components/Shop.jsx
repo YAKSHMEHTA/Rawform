@@ -7,6 +7,8 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function Shop() {
+  
+  let arr = ['a','b','c','d']
 
 useEffect(() => {
     const lenis = new Lenis({ duration: 1.8 });
@@ -31,7 +33,11 @@ useEffect(() => {
         <h2 className="text-9xl">Shop</h2>
       </div>
       <div className="h-full w-full px-10  py-30">
-        <div className="h-full w-full grid grid-cols-2 grid-rows-3 gap-4">
+        {
+          
+          arr.map((item,idx)=>{
+            return (
+                <div className="h-full w-full grid grid-cols-2 grid-rows-3 gap-4">
           <Card
           btn={false}
           px={"-=300px"}
@@ -50,6 +56,9 @@ useEffect(() => {
           imgSrc={"/hrpanel1.webp"}
         />
         </div>
+            )
+          })
+        }
       </div>
     </div>
   );

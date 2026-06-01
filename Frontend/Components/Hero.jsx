@@ -68,7 +68,7 @@ function Hero() {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative  size-min:w-full ">
         <div className="hero relative h-screen w-full  overflow-hidden">
           <img
             src="/BGHEROIMG.jpg"
