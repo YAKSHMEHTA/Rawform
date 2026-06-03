@@ -12,3 +12,10 @@ body{
   font-style: normal;
 }
 
+.abt{
+  font-size: 20rem;  
+  font-family: poppins;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}

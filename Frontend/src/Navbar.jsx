@@ -31,7 +31,7 @@ function Navbar() {
       {/* Center Links */}
       <div className="flex gap-15">
         <Link to="/shop">SHOP</Link>
-        <a href="">ABOUT</a>
+        <Link to="/about">ABOUT</Link>
         <a href="">CONTACT</a>
         <a href="">STOCKIST</a>
       </div>
