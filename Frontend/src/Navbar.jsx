@@ -32,7 +32,7 @@ function Navbar() {
       <div className="flex gap-15">
         <Link to="/shop">SHOP</Link>
         <Link to="/about">ABOUT</Link>
-        <a href="">CONTACT</a>
+        <a href="Contact">CONTACT</a>
         <a href="">STOCKIST</a>
       </div>
 

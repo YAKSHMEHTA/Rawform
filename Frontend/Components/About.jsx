@@ -1,30 +1,62 @@
-import React from "react";
+import React, { useEffect,useRef } from "react";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+
+function Splittext({ text, className, direction = "left" }) {
+  return (
+    <p className={className}>
+      {text.split("").map((char, i) => (
+        <span
+          key={i}
+          className={`char top-${i*20}`}
+          style={{
+            display: "inline-block",
+          }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </span>
+      ))}
+    </p>
+  );
+}
 
 
 function About() {
+  const parref = useRef(null)
+  const href = useRef(null)
+  useEffect(() => {
+    gsap.set(".yaksh",{y:"100%"})
+    gsap.to(".yaksh", {
+    y: "0%",
+    duration: 1.2,
+    stagger: 0.12,
+    ease: "expo.out",
+  });
+
+
+ },[]);
+
   return (
-    <div className="h-full abt w-full">
-      <div className="h-[130vh] bg-gray-700 w-full flex overflow-hidden">
-        <div className="h-full overflow-hidden relative w-1/2">
-          <img
-            src="Programmer Life.jpeg"
-            className="object-fill absolute  -top-95"
-            alt=""
-          />
+    <div className="w-full h-[75vh] bg-black">
+      <div className="h-full text w-full pt-35 relative">
+        <div ref={parref} className="par overflow-hidden">
+          <h3 ref={href} className="yaksh text-white">yaksh vardhan singh mehta</h3>
         </div>
-        <div className="h-full w-1/2  bg-black flex flex-col pl-45 pt-55 ">
-          <h3 className="text-white text-7xl font-extralight tracking-tight ">
-            DROP IN
-          </h3>
-          <h3 className="text-white text-7xl font-extralight tracking-tight ">
-            ANYTIME
-          </h3>
-          <p className="text-white font-extralight text-[1rem]">
-            For custom web solutions, creative animations, or collaboration
-            opportunities, feel free to get in touch. Let's build engaging
-            digital experiences together.
-          </p>
+        <div ref={parref} className="par overflow-hidden">
+          <h3  ref={href}  className="yaksh text-white">yaksh vardhan singh mehta</h3>
         </div>
+        <div ref={parref} className="par overflow-hidden">
+          <h3  ref={href}  className="yaksh text-white">yaksh vardhan singh mehta</h3>
+        </div>
+        <div ref={parref} className="par overflow-hidden">
+          <h3  ref={href}  className="yaksh text-white">yaksh vardhan singh mehta</h3>
+        </div>
+      
+        <Splittext 
+            className=" text-white absolute right-30"
+            text="dawteert dwad awdf ae gawgag "
+            >
+        </Splittext>
       </div>
     </div>
   );
