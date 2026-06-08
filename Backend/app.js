@@ -3,6 +3,7 @@ import mongodb from 'mongodb';
 import mongoose from 'mongoose'
 import dotenv from 'dotenv';
 import Usermodel from './Schema/Schema.js'
+import ProductModel from './Schema/productSchema.js'
 const app = express();
 
 dotenv.config();
@@ -13,7 +14,6 @@ app.get("/",(req,res)=>{
 })
 
 app.post("/createuser",async(req,res)=>{
-    
     try{
         const user = new Usermodel();
         const saveduser = await user.save(req.body);
@@ -40,6 +40,16 @@ app.get("/createuser", async (req, res) => {
     res.send(error.message);
   }
 });
+
+app.post('/productinit',async(req,res)=>{
+  try {
+    const prod = new ProductModel(req.body);
+    const saveData = await prod.save();
+    res.send(saveData);
+  } catch (e){
+    console.log(e);
+  }
+})
 
 mongoose.connect(process.env.URI)
     .then(()=>{
