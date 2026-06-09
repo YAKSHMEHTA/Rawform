@@ -16,6 +16,20 @@ function Navbar() {
     });
   };
 
+  const handelShop = () =>{
+    const shopDiv = document.getElementById("shop")
+    console.log("mouseenter")
+    shopDiv.style.display = "flex";
+    shopDiv.style.flexDirection = "column";
+    shopDiv.style.opacity = "1";
+  }
+  const handelShopLeave = () => {
+    console.log("mouseleave")
+    const shopDiv = document.getElementById("shop")
+    shopDiv.style.display = "none";
+    shopDiv.style.opacity = "0";
+  }
+
   return (
     <div
       onMouseOver={NavColor}
@@ -29,8 +43,13 @@ function Navbar() {
       </div>
 
       {/* Center Links */}
-      <div className="flex gap-15">
-        <Link to="/shop">SHOP</Link>
+      <div className="flex gap-15 relative">
+        <Link onMouseOver={handelShop}  className="" to="/shop">SHOP</Link>
+        <div id="shop" onMouseLeave={handelShopLeave} className="absolute drops gap-1  top-10  " style={{display:"none"}}>
+          <div className="h-0.5  w-full bg-black"></div>
+          <Link to={"/shop/1"}>Drop 1</Link>
+          <Link to={"/shop/2"} >Drop 2</Link>
+        </div>
         <Link to="/about">ABOUT</Link>
         <a href="Contact">CONTACT</a>
         <a href="">STOCKIST</a>

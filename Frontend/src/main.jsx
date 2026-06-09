@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")).render(
       <Navbar />
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/shop" element={<Shop />} />
+        <Route path="/shop/:drop" element={<Shop />} />
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
       </Routes>

@@ -1,0 +1,22 @@
+{
+  "name": "BELTED CARGO PANTS",
+  "drop": "2",
+  "slug": "belted-cargo-pants",
+  "description": "A fresh take on tailoring — these crisp white wide-leg pants balance structure and ease with their artfully draped silhouette. Designed with a soft pleat at the front and an extended strap detail that adds visual length and understated edge. Made from a lightweight cotton-blend fabric, they sit low to mid-rise with a relaxed fit through the leg for effortless movement. Finished with side pockets and clean stitching, they’re the kind of trousers that elevate even the simplest tank.",
+  "price": 800,
+  "comparePrice": 1000,
+  "category": "pants",
+  "images": [
+    "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938592/lswztaadtzsazvk0u5z7.jpg",
+    "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938592/ldij6s0echbfjoztkarg.jpg",
+    "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938591/cntd3ovjbt2bmhgboqg2.jpg",
+    "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938593/qib7gvdc3h721sjbbdtv.jpg"
+  ],
+  "sizes": ["XS", "S", "M", "L"],
+  "colors": ["white"],
+  "stock": 12,
+  "material": "premium cotton blend ",
+  "featured": true,
+  "rating": 0,
+  "reviewsCount": 0
+}

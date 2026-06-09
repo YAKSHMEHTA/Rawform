@@ -1,13 +1,20 @@
 import express from 'express';
 import mongodb from 'mongodb';
 import mongoose from 'mongoose'
+import cors from 'cors'
 import dotenv from 'dotenv';
-import Usermodel from './Schema/Schema.js'
-import ProductModel from './Schema/productSchema.js'
+import Usermodel from './Schema/Schema.js';
+import ProductModel from './Schema/productSchema.js';
 const app = express();
 
 dotenv.config();
 app.use(express.json());
+app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+)
 
 app.get("/",(req,res)=>{
     res.send("This is home page");
@@ -22,6 +29,12 @@ app.post("/createuser",async(req,res)=>{
     }catch(e){
         console.log(e);
     }
+})
+
+app.get("/shop",async(req,res) => {
+  const dropNum = req.query.drop
+  const data = await ProductModel.find({ drop: dropNum });
+  res.json(data);
 })
 
 app.get("/createuser", async (req, res) => {
@@ -59,4 +72,6 @@ mongoose.connect(process.env.URI)
     })
 })
 .catch((err) => console.error("DB connection error:", err))
+
+
 
