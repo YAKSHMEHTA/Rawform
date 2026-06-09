@@ -42,7 +42,6 @@ useEffect(() => {
  let l = "https://cdn.shopify.com/s/files/1/0692/0214/9630/files/112225_Drop_Edition_Look_10_1026_horizontal_1600x.jpg?v=1765964434"
   return (
     <div className="h-full w-full">
-      <h1>{products[0].name}w</h1>
       <div className="h-60 w-full flex justify-center items-end  ">
         <h2 className="text-9xl">Shop</h2>
       </div>
