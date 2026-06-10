@@ -99,3 +99,22 @@ h1 {
   }
 
 }
+
+/* .detail{
+  font-family:  "Mirtha";
+  line-height: 0.9;
+  text-transform: uppercase;
+  font-optical-sizing:auto;
+  font-weight: 200;
+  font-style: normal;
+} */
+.detail h3{
+  font-family: "Mirtha ";
+  font-weight:100;
+  font-size: 1.5rem;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  transform: scaleY(2.1);
+  text-transform: uppercase;
+  transform-origin: top;
+}

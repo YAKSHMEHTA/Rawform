@@ -37,14 +37,14 @@ function Navbar() {
       className="nav px-8 py-6 fixed w-full flex justify-between
      items-center z-10 size-max:bg-red-800"
     >
-      {/* Logo */}
+
       <div>
         <a href="">YAKSH</a>
       </div>
 
-      {/* Center Links */}
+
       <div className="flex gap-15 relative">
-        <Link onMouseOver={handelShop}  className="" to="/shop">SHOP</Link>
+        <Link onMouseOver={handelShop}  className="" to="/shop/2">SHOP</Link>
         <div id="shop" onMouseLeave={handelShopLeave} className="absolute drops gap-1  top-10  " style={{display:"none"}}>
           <div className="h-0.5  w-full bg-black"></div>
           <Link to={"/shop/1"}>Drop 1</Link>
@@ -55,7 +55,6 @@ function Navbar() {
         <a href="">STOCKIST</a>
       </div>
 
-      {/* Right Section */}
       <div className="flex gap-6">
         <a href="">BAG</a>
         <a href="">PROFILE</a>

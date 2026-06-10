@@ -31,6 +31,13 @@ app.post("/createuser",async(req,res)=>{
     }
 })
 
+app.get("/shop/detail",async(req,res)=>{
+  const slug =req.query.slug;
+  const data = await ProductModel.find({slug:slug});
+  console.log(data);
+  res.json(data);
+})
+
 app.get("/shop",async(req,res) => {
   const dropNum = req.query.drop
   const data = await ProductModel.find({ drop: dropNum });
