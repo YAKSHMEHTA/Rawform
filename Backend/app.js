@@ -25,7 +25,6 @@ app.post("/createuser",async(req,res)=>{
         const user = new Usermodel();
         const saveduser = await user.save(req.body);
         res.send(req.body)
-        console.log("sucess")
     }catch(e){
         console.log(e);
     }
@@ -34,7 +33,6 @@ app.post("/createuser",async(req,res)=>{
 app.get("/shop/detail",async(req,res)=>{
   const slug =req.query.slug;
   const data = await ProductModel.find({slug:slug});
-  console.log(data);
   res.json(data);
 })
 
@@ -79,6 +77,3 @@ mongoose.connect(process.env.URI)
     })
 })
 .catch((err) => console.error("DB connection error:", err))
-
-
-
