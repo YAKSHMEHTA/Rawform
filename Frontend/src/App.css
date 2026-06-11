@@ -109,12 +109,13 @@ h1 {
   font-style: normal;
 } */
 .detail h3{
-  font-family: "Mirtha ";
+  font-family: "Mirtha Display";
   font-weight:100;
-  font-size: 1.5rem;
+  font-size: 3.5rem;
   line-height: 0.85;
-  letter-spacing: -0.02em;
-  transform: scaleY(2.1);
-  text-transform: uppercase;
   transform-origin: top;
+}
+.detail .cnt{
+  font-family: "ABC Whyte Unlicensed Trial";
+  font-size: 0.7rem;
 }
