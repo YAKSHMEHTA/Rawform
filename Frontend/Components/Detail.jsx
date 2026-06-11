@@ -70,7 +70,6 @@ function Detail() {
           scrollTrigger: {
             trigger: img,
             start: "top 80%",
-            markers: true,
           },
         },
       );
@@ -131,8 +130,8 @@ useEffect(() => {
           );
         })}
       </div>
-      <div className="w-1/2 px-20  py-5  ">
-        <div className="w-50 fixed  ">
+      <div className="w-1/2 px-40  py-5  ">
+        <div className="w-70 fixed  ">
           <h3 className="uppercase">
             DROP {detail.drop} THE {detail.name}
           </h3>
@@ -141,7 +140,7 @@ useEffect(() => {
               return (
                 <>
                   <div className="flex justify-between">
-                    <p>{arr2[idx]}</p>
+                    <p className="head uppercase">{arr2[idx]}</p>
                     <button
                       onClick={() => {
                         handelClick(idx);

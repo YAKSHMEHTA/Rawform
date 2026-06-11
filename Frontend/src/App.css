@@ -119,3 +119,10 @@ h1 {
   font-family: "ABC Whyte Unlicensed Trial";
   font-size: 0.7rem;
 }
+
+.detail .head{
+  font-family: "ABC Whyte Mono Unlicensed Trial";
+  font-weight: 400;
+  transform: uppercase;
+  font-size: 1rem;
+}
