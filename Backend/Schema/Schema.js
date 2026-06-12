@@ -10,7 +10,7 @@ const UserSchema =  new Schema(
     email: String,
     password: String,
     phone: String,
-
+    refreshtoken:String,
     addresses: [
       {
         fullName: String,

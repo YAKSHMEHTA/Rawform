@@ -5,6 +5,7 @@ import cors from 'cors'
 import dotenv from 'dotenv';
 import Usermodel from './Schema/Schema.js';
 import ProductModel from './Schema/productSchema.js';
+import authRoute from './Routes/AuthRoute.js'
 const app = express();
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(
     origin: "http://localhost:5173",
   })
 )
+app.use("/auth", authRoute)
 
 app.get("/",(req,res)=>{
     res.send("This is home page");
@@ -45,10 +47,11 @@ app.get("/shop",async(req,res) => {
 app.get("/createuser", async (req, res) => {
   try {
     const user = await Usermodel.create({
-      name: "Yaksh",
-      email: "yaksh@gmail.com",
-      password: "123456",
-      phone: "9876543210"
+      name: "wasd",
+      email: "wdasd@gmail.wadsd",
+      password: "dyhdth",
+      phone: "9876543210",
+      refreshtoken:"dojngipodjsohijsdiojoie"
     });
 
     res.send(user);
