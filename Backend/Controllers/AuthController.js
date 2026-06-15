@@ -13,7 +13,7 @@ export const Signup = async(req,res,next)=>{
         }
         const hashedpassword = await bcrypt.hash(password,10)
         const user = await Usermodel.create({
-            name,email,hashedpassword,Timestamp:true
+            name,email,password:hashedpassword,Timestamp:true
         })
         return  res.json({msg:"user created"});;
     }catch(e){
@@ -33,7 +33,7 @@ export const Login = async(req,res) =>{
     if(!isUser){
         return res.send("No user foun with this email");
     }
-    console.log(isUser.password);
+    console.log(isUser);
     const match = await bcrypt.compare(password,isUser.password);
 
     if(!match){
@@ -41,8 +41,9 @@ export const Login = async(req,res) =>{
     }
 
     const accessToken = createAccessToken(isUser.id);
-    isUser.refreshTone =  createRefreshToken(isUser.id);
-    
+    isUser.refreshtoken =  createRefreshToken(isUser.id);
+    console.log("access token : ",accessToken)
+    console.log("logged in")
     res.cookie("token",accessToken,{
         secure: false,
         sameSite: "strict",

@@ -7,6 +7,8 @@ import App from "./App.jsx";
 import Contact from "../Components/Contact.jsx";
 import About from "../Components/About.jsx";
 import Detail from "../Components/Detail.jsx";
+import Login from "../Auth/Login.jsx";
+import Signup from "../Auth/Signup.jsx";
 import './App.css'
 import "./index.css";
 import Shop from "../Components/Shop.jsx";
@@ -22,6 +24,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/About" element={<About />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/shop/detail" element={<Detail></Detail>} ></Route>
+        <Route path="/signup" element={<Signup></Signup>} />
+        <Route path="/login" element={<Login></Login>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

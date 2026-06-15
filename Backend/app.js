@@ -6,14 +6,15 @@ import dotenv from 'dotenv';
 import Usermodel from './Schema/Schema.js';
 import ProductModel from './Schema/productSchema.js';
 import authRoute from './Routes/AuthRoute.js'
+import { decode } from 'jsonwebtoken';
 const app = express();
 
 dotenv.config();
 app.use(express.json());
-app.use(cors());
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5173",credentials: true
   })
 )
 app.use("/auth", authRoute)
@@ -61,6 +62,15 @@ app.get("/createuser", async (req, res) => {
     res.send(error.message);
   }
 });
+
+app.post("/addtocart",async(req,res)=>{
+  const token = req.cookies.token
+  const decoded = jwt.verify(token,process.env.access_token_secret)
+  console.log(decode)
+  // const user = await Usermodel.findOne({decode.id});
+  // console.log("user :",user);
+  return res.send("done");
+})
 
 app.post('/productinit',async(req,res)=>{
   try {

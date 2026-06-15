@@ -2,8 +2,6 @@ import mongoose from "mongoose";
 
 const { Schema, model, Types } = mongoose;
 
-
-
 const UserSchema =  new Schema(
   {
     name: String,

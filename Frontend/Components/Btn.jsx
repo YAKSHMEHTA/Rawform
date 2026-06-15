@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import gsap from 'gsap'
 
-function Btn({h,w}) {
+function Btn({h,w,text}) {
     const handelEnter = (e) =>{
         const btn = document.getElementById("btn");
         gsap.to(e.currentTarget,{
@@ -23,7 +23,7 @@ function Btn({h,w}) {
   return (
     <>
         <button onMouseEnter={handelEnter} onMouseLeave={handelLeave} 
-        className="bg-black text-white  btn" id='btn' style={{height:h,width:w}} >view details</button>
+        className="bg-black text-white  btn" id='btn' style={{height:h,width:w}} > {text || "view details"}</button>
     </>
   )
 }
