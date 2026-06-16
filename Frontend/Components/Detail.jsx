@@ -20,6 +20,7 @@ function Detail() {
   const slug = searchParams.get("slug");
   const [detail, setDetail] = useState({});
   const [imgurl, setImgUrl] = useState([]);
+  const [size,setSize] = useState("");
   const arr = [];
   let productId = "" 
   useEffect(() => {
@@ -124,11 +125,12 @@ function Detail() {
     e.preventDefault();
     const res = await axios.post(
       "http://localhost:8080/addtocart",
-      {slugg:slug},
+      {slugg:slug,qty:qty,size:size},
       { withCredentials: true },
     );
     console.log(res);
   };
+
 
   return (
     <>
@@ -232,10 +234,32 @@ function Detail() {
                   </button>
                 </div>
               </div>
+              <div className="flex justify-between items-center">
+                <p className="font-[300] text-[1.2rem]">Size</p>
+                <div className="">
+                  {['X','M','L'].map((item,idx)=>{
+                    return(
+                      <button
+                      key={idx}
+                      onClick={()=> setSize(item)}
+                    className=""
+                    style={{
+                      height: "2rem",
+                      width: "2rem",
+                      border: "1px solid black",
+                    }}
+                  >
+                    {item}
+                  </button>
+                    )
+                  })}
+                </div>
+              </div>
+              
               <div className="py-5">
-                <button onClick={handelAdd}>
+                <div onClick={handelAdd}>
                   <Btn h={"3rem"} w={"full"} text={"Add to Cart"}></Btn>
-                </button>
+                </div>
                 <p className="text-[0.6rem] pt-2">
                   Disclaimer: Taxes & shipping calculated at checkout.
                 </p>
