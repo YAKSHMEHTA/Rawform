@@ -1,17 +1,20 @@
 import express from 'express';
 import mongodb from 'mongodb';
 import mongoose from 'mongoose'
+import jwt from 'jsonwebtoken';
 import cors from 'cors'
+import cookieParser from "cookie-parser";
 import dotenv from 'dotenv';
 import Usermodel from './Schema/Schema.js';
 import ProductModel from './Schema/productSchema.js';
 import authRoute from './Routes/AuthRoute.js'
 import { decode } from 'jsonwebtoken';
+import productSchema from './Schema/productSchema.js';
 const app = express();
 
 dotenv.config();
 app.use(express.json());
-
+app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:5173",credentials: true
@@ -64,11 +67,24 @@ app.get("/createuser", async (req, res) => {
 });
 
 app.post("/addtocart",async(req,res)=>{
-  const token = req.cookies.token
-  const decoded = jwt.verify(token,process.env.access_token_secret)
-  console.log(decode)
-  // const user = await Usermodel.findOne({decode.id});
-  // console.log("user :",user);
+  const { slugg } = req.body;
+
+  const token = req.cookies?.token;
+
+  const decoded = jwt.verify(token,process.env.access_token_secret);
+
+  const id = decoded.id
+
+  const user = await Usermodel.findOne({_id:id});
+  const product = await productSchema.findOne({slug:slugg})
+  user.cart.push({
+    productId:product._id,
+    size:"M",
+    color: "black",
+    quantity: 4,
+  });
+  
+  user.save();
   return res.send("done");
 })
 
