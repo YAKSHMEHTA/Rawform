@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import Usermodel from "./Schema/Schema.js";
 import ProductModel from "./Schema/productSchema.js";
 import authRoute from "./Routes/AuthRoute.js";
+import { createAccessToken,createRefreshToken } from "./Utils/SecretToken.js";
 import { decode } from "jsonwebtoken";
 import productSchema from "./Schema/productSchema.js";
 const app = express();
@@ -114,6 +115,46 @@ app.post("/productinit", async (req, res) => {
     console.log(e);
   }
 });
+
+app.post("/refresh",async(req,res)=>{
+  try{
+    const token = req.cookies.refreshtoken;
+    if(!token) {
+      return res.redirect("/login");
+    }
+    const decoded = await jwt.verify(token,process.env.access_token_secret);
+    const userid = decoded.id;
+    const user = await Usermodel.findById(userid);
+    const storedRefreshToken = user.refreshtoken;
+
+    if(token !== storedRefreshToken){
+      return res.json({msg:"refreshToken does not meet"});
+    }
+
+    const newRefreshToken = createRefreshToken(userid);
+    const newAcessToken = createAccessToken(userid);
+
+    user.refreshtoken = newRefreshToken;
+
+    res.cookie("refreshtoken",newRefreshToken,{
+      secure:false,
+      sameSite:"strict",
+    })
+
+    res.cookie("token",newAcessToken,{
+      secure:false,
+      sameSite:"strict",
+    })
+
+    await user.save();
+
+    return res.send("done")
+    
+  }catch(e){
+    console.log(e);
+  }
+
+})
 
 mongoose
   .connect(process.env.URI)

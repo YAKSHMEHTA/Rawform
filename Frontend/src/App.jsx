@@ -6,12 +6,7 @@ import Text from '../Components/Text'
 import LineUP from '../Components/LineUP'
 import Footer from './Footer'
 
-
-
-
 function App() {
-
-
 
   return (
     <div>

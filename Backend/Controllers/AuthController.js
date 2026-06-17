@@ -41,13 +41,18 @@ export const Login = async(req,res) =>{
     }
 
     const accessToken = createAccessToken(isUser.id);
-    isUser.refreshtoken =  createRefreshToken(isUser.id);
+    const refreshToken = createRefreshToken(isUser.id);
+    isUser.refreshtoken = refreshToken;
     console.log("access token : ",accessToken)
     console.log("logged in")
     res.cookie("token",accessToken,{
         secure: false,
         sameSite: "strict",
     })
+    res.cookie("refreshtoken",refreshToken,{
+        secure:false,
+        sameSite:"strict",
+    })
     await isUser.save();
-    res.send("logged in");
+    return res.send("logged in");
 }
