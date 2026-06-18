@@ -37,6 +37,7 @@ const UserSchema =  new Schema(
         },
         size: String,
         color: String,
+        price:Number,
         quantity: Number,
       },
     ],

@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import Usermodel from "./Schema/Schema.js";
 import ProductModel from "./Schema/productSchema.js";
 import authRoute from "./Routes/AuthRoute.js";
-import { createAccessToken,createRefreshToken } from "./Utils/SecretToken.js";
+import { createAccessToken, createRefreshToken } from "./Utils/SecretToken.js";
 import { decode } from "jsonwebtoken";
 import productSchema from "./Schema/productSchema.js";
 const app = express();
@@ -41,7 +41,7 @@ app.post("/createuser", async (req, res) => {
 app.get("/cart", async (req, res) => {
   try {
     const token = req.cookies.token;
-    if(!token){
+    if (!token) {
       res.redirect("/login");
     }
     const decoded = await jwt.verify(token, process.env.access_token_secret);
@@ -49,7 +49,14 @@ app.get("/cart", async (req, res) => {
     const user = await Usermodel.findOne({ _id: id });
     console.log("cart");
     const data = user.cart;
-    return res.send(data);
+    const idArr = [];
+    data.forEach((element) => {
+      idArr.push(element.productId);
+    });
+    const pdata = await productSchema.find({
+      _id: { $in: idArr },
+    });
+    return res.send({ data, pdata });
   } catch (e) {
     console.log(e);
   }
@@ -100,6 +107,7 @@ app.post("/addtocart", async (req, res) => {
     productId: product._id,
     size: size,
     quantity: qty,
+    price: product.price,
   });
 
   user.save();
@@ -116,19 +124,19 @@ app.post("/productinit", async (req, res) => {
   }
 });
 
-app.post("/refresh",async(req,res)=>{
-  try{
+app.post("/refresh", async (req, res) => {
+  try {
     const token = req.cookies.refreshtoken;
-    if(!token) {
+    if (!token) {
       return res.redirect("/login");
     }
-    const decoded = await jwt.verify(token,process.env.access_token_secret);
+    const decoded = await jwt.verify(token, process.env.access_token_secret);
     const userid = decoded.id;
     const user = await Usermodel.findById(userid);
     const storedRefreshToken = user.refreshtoken;
 
-    if(token !== storedRefreshToken){
-      return res.json({msg:"refreshToken does not meet"});
+    if (token !== storedRefreshToken) {
+      return res.json({ msg: "refreshToken does not meet" });
     }
 
     const newRefreshToken = createRefreshToken(userid);
@@ -136,25 +144,23 @@ app.post("/refresh",async(req,res)=>{
 
     user.refreshtoken = newRefreshToken;
 
-    res.cookie("refreshtoken",newRefreshToken,{
-      secure:false,
-      sameSite:"strict",
-    })
+    res.cookie("refreshtoken", newRefreshToken, {
+      secure: false,
+      sameSite: "strict",
+    });
 
-    res.cookie("token",newAcessToken,{
-      secure:false,
-      sameSite:"strict",
-    })
+    res.cookie("token", newAcessToken, {
+      secure: false,
+      sameSite: "strict",
+    });
 
     await user.save();
 
-    return res.send("done")
-    
-  }catch(e){
+    return res.send("done");
+  } catch (e) {
     console.log(e);
   }
-
-})
+});
 
 mongoose
   .connect(process.env.URI)
