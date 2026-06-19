@@ -103,14 +103,25 @@ app.post("/addtocart", async (req, res) => {
   const user = await Usermodel.findOne({ _id: id });
   const product = await productSchema.findOne({ slug: slugg });
 
-  user.cart.push({
-    productId: product._id,
-    size: size,
-    quantity: qty,
-    price: product.price,
-  });
+  const item = user.cart.find(
+    (item) => item.productId.toString() === product._id.toString(),
+  );
 
-  user.save();
+  if (item) {
+    item.quantity += qty;
+    console.log("increased")
+  } else {
+    user.cart.push({
+      productId: product._id,
+      size,
+      quantity: qty,
+      price: product.price,
+    });
+    console.log("pushed")
+  }
+
+  await user.save();
+
   return res.send("done");
 });
 
@@ -119,6 +130,36 @@ app.post("/productinit", async (req, res) => {
     const prod = new ProductModel(req.body);
     const saveData = await prod.save();
     res.send(saveData);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+app.post("/inc", async (req, res) => {
+  try {
+    const { id, idx, bool, remove } = req.body;
+    const token = req.cookies.token;
+    const decoded = await jwt.verify(token, process.env.access_token_secret);
+    const userId = decoded.id;
+    const user = await Usermodel.findOne({ _id: userId });
+
+    let prev = user.cart[idx].quantity;
+
+    if (remove === true) {
+      user.cart.splice(idx, 1);
+    } else if (bool === true) {
+      prev++;
+    } else if (prev > 0) {
+      prev--;
+    }
+    if (remove === false) {
+      user.cart[idx].quantity = prev;
+    }
+
+    console.log("prev", prev);
+    await user.save();
+    console.log(user);
+    return res.send("done");
   } catch (e) {
     console.log(e);
   }

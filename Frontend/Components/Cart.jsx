@@ -10,6 +10,7 @@ function Cart() {
   const [pdata, setPdata] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cost, setCost] = useState(0);
+  const [change, setChange] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,14 +30,22 @@ function Cart() {
     };
 
     fetchData();
-  }, []);
+  }, [change]);
 
   console.log(cart);
   console.log("pdata", pdata);
 
-  const decrement = () => {};
 
-  const increment = () => {};
+  const decinc = async (pid, idx,bool,remove) => {
+    console.log("pid", pid);
+    console.log("idx", idx); 
+    const data = await api.post(
+      "http://localhost:8080/inc",
+      { id: pid, idx: idx, bool: bool,remove:remove },
+      { withCredentials: true },
+    );
+    setChange((prev) => !prev);
+  };
 
   if (loading) return <div>...loading</div>;
 
@@ -45,13 +54,14 @@ function Cart() {
       <div className="h-full gap-10 w-3/5 flex flex-wrap">
         {pdata.map((item, idx) => {
           return (
-            <div className="">
-              <div key={idx} className="h-80 w-60 overflow-hidden">
+            <div key={idx} className="">
+              <div key={idx} className="h-80 w-60 relative overflow-hidden">
                 <img
                   src={item.images[0]}
                   className="object-cover h-full w-full"
                   alt=""
                 />
+                <button onClick={() => {decinc(item._id,idx,false,true)}} className="absolute z-3 top-3 right-4 font-bold">X</button>
               </div>
               <div className="py-4">
                 <p>{item.name}</p>
@@ -69,7 +79,7 @@ function Cart() {
                       width: "2rem",
                       border: "1px solid black",
                     }}
-                    onClick={decrement}
+                    onClick={() => {decinc(item._id, idx, false,false);}}
                   >
                     -
                   </button>
@@ -85,7 +95,9 @@ function Cart() {
                   </button>
                   <button
                     className="k "
-                    onClick={increment}
+                    onClick={() => {
+                      decinc(item._id, idx, true,false);
+                    }}
                     style={{
                       height: "2rem",
                       width: "2rem",
