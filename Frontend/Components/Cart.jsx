@@ -35,13 +35,12 @@ function Cart() {
   console.log(cart);
   console.log("pdata", pdata);
 
-
-  const decinc = async (pid, idx,bool,remove) => {
+  const decinc = async (pid, idx, bool, remove) => {
     console.log("pid", pid);
-    console.log("idx", idx); 
+    console.log("idx", idx);
     const data = await api.post(
-      "http://localhost:8080/inc",
-      { id: pid, idx: idx, bool: bool,remove:remove },
+      "/inc",
+      { id: pid, idx: idx, bool: bool, remove: remove },
       { withCredentials: true },
     );
     setChange((prev) => !prev);
@@ -61,7 +60,14 @@ function Cart() {
                   className="object-cover h-full w-full"
                   alt=""
                 />
-                <button onClick={() => {decinc(item._id,idx,false,true)}} className="absolute z-3 top-3 right-4 font-bold">X</button>
+                <button
+                  onClick={() => {
+                    decinc(item._id, idx, false, true);
+                  }}
+                  className="absolute z-3 top-3 right-4 font-bold"
+                >
+                  X
+                </button>
               </div>
               <div className="py-4">
                 <p>{item.name}</p>
@@ -79,7 +85,9 @@ function Cart() {
                       width: "2rem",
                       border: "1px solid black",
                     }}
-                    onClick={() => {decinc(item._id, idx, false,false);}}
+                    onClick={() => {
+                      decinc(item._id, idx, false, false);
+                    }}
                   >
                     -
                   </button>
@@ -96,7 +104,7 @@ function Cart() {
                   <button
                     className="k "
                     onClick={() => {
-                      decinc(item._id, idx, true,false);
+                      decinc(item._id, idx, true, false);
                     }}
                     style={{
                       height: "2rem",

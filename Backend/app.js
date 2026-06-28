@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import Usermodel from "./Schema/Schema.js";
 import ProductModel from "./Schema/productSchema.js";
+import AuthMiddleware from "./Middlewares/AuthMiddleWare.js";
 import authRoute from "./Routes/AuthRoute.js";
 import { createAccessToken, createRefreshToken } from "./Utils/SecretToken.js";
 import { decode } from "jsonwebtoken";
@@ -38,7 +39,7 @@ app.post("/createuser", async (req, res) => {
   }
 });
 
-app.get("/cart", async (req, res) => {
+app.get("/cart",AuthMiddleware, async (req, res) => {
   try {
     const token = req.cookies.token;
     if (!token) {
@@ -109,7 +110,7 @@ app.post("/addtocart", async (req, res) => {
 
   if (item) {
     item.quantity += qty;
-    console.log("increased")
+    console.log("increased");
   } else {
     user.cart.push({
       productId: product._id,
@@ -117,7 +118,7 @@ app.post("/addtocart", async (req, res) => {
       quantity: qty,
       price: product.price,
     });
-    console.log("pushed")
+    console.log("pushed");
   }
 
   await user.save();
@@ -169,7 +170,9 @@ app.post("/refresh", async (req, res) => {
   try {
     const token = req.cookies.refreshtoken;
     if (!token) {
-      return res.redirect("/login");
+      return res.status(401).json({
+        message: "No refresh token",
+      });
     }
     const decoded = await jwt.verify(token, process.env.access_token_secret);
     const userid = decoded.id;
@@ -199,7 +202,9 @@ app.post("/refresh", async (req, res) => {
 
     return res.send("done");
   } catch (e) {
-    console.log(e);
+    return res.status(401).json({
+      message: "Token expired",
+    });
   }
 });
 

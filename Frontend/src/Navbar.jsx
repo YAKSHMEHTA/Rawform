@@ -51,12 +51,13 @@ function Navbar() {
           <Link to={"/shop/2"} >Drop 2</Link>
         </div>
         <Link to="/about">ABOUT</Link>
+        
         <a href="Contact">CONTACT</a>
         <a href="">STOCKIST</a>
       </div>
 
       <div className="flex gap-6">
-        <a href="">BAG</a>
+        <Link to="/cart"> <a href="">BAG</a> </Link>
         <a href="">PROFILE</a>
       </div>
     </div>
