@@ -29,7 +29,7 @@ function About() {
     gsap.to(".yaksh", {
       y: "0%",
       duration: 1.2,
-      stagger: 0.12,
+      stagger: 0.16,
       ease: "expo.out",
     });
   }, []);
@@ -38,17 +38,22 @@ function About() {
     <>
       <div className="w-full h-[75vh] bg-black">
         <div className="h-full text w-full pt-35 relative">
-          <div className="absolute w-80 right-30">
+          <div className="absolute w-140 right-30">
             <div ref={parref} className="par overflow-hidden">
               <h3 ref={href} className="yaksh flex flex-wrap text-white">
-                This website is a personal educational and reverse engineering
-                project created solely for learning, experimentation, and
-                development practice.
+                This website is a personal educational and reverse
+
+              </h3>
+            </div>
+            <div ref={parref} className="par overflow-hidden">
+              <h3 ref={href} className="yaksh flex flex-wrap text-white">
+                engineering project created solely for learning ,
               </h3>
             </div>
             <div ref={parref} className="par overflow-hidden">
               <h3 ref={href} className="yaksh text-white">
-                yaksh vardhan singh mehta
+                experimentation, and
+                development practice. Yaksh Mehta
               </h3>
             </div>
           </div>

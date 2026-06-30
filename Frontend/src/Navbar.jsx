@@ -57,8 +57,8 @@ function Navbar() {
       </div>
 
       <div className="flex gap-6">
-        <Link to="/cart"> <a href="">BAG</a> </Link>
-        <a href="">PROFILE</a>
+        <a href="">BAG</a> 
+        <Link to="/profile"> <a href="">PROFILE</a> </Link>
       </div>
     </div>
   );

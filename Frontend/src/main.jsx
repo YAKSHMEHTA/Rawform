@@ -6,6 +6,7 @@ import Navbar from "./Navbar.jsx";
 import App from "./App.jsx";
 import Contact from "../Components/Contact.jsx";
 import About from "../Components/About.jsx";
+import Profile from "../Components/Profile.jsx";
 import Cart from "../Components/Cart.jsx";
 import Detail from "../Components/Detail.jsx";
 import Login from "../Auth/Login.jsx";
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/signup" element={<Signup></Signup>} />
         <Route path="/login" element={<Login></Login>}/>
         <Route path="/cart" element={<Cart></Cart>}></Route>
+        <Route path="/profile" element={<Profile></Profile>}></Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>,
