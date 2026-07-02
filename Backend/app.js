@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import Usermodel from "./Schema/Schema.js";
 import ProductModel from "./Schema/productSchema.js";
 import AuthMiddleware from "./Middlewares/AuthMiddleWare.js";
+import Razorpay from "razorpay";
 import authRoute from "./Routes/AuthRoute.js";
 import { createAccessToken, createRefreshToken } from "./Utils/SecretToken.js";
 import { decode } from "jsonwebtoken";
@@ -24,6 +25,10 @@ app.use(
   }),
 );
 app.use("/auth", authRoute);
+var instance = new Razorpay({
+  key_id: process.env.razor_key,
+  key_secret: process.env.razor_secret,
+});
 
 app.get("/", (req, res) => {
   res.send("This is home page");
@@ -39,7 +44,7 @@ app.post("/createuser", async (req, res) => {
   }
 });
 
-app.get("/cart",AuthMiddleware, async (req, res) => {
+app.get("/cart", AuthMiddleware, async (req, res) => {
   try {
     const token = req.cookies.token;
     if (!token) {
@@ -174,7 +179,7 @@ app.post("/refresh", async (req, res) => {
         message: "No refresh token",
       });
     }
-    const decoded = await jwt.verify(token, process.env.access_token_secret);
+    const decoded = await jwt.verify(token, process.env.refresh_token_secret);
     const userid = decoded.id;
     const user = await Usermodel.findById(userid);
     const storedRefreshToken = user.refreshtoken;
@@ -208,11 +213,27 @@ app.post("/refresh", async (req, res) => {
   }
 });
 
-app.post("/v1/order",async(req,res)=>{
+app.post("/v1/order", async (req, res) => {
+  try {
+    const order = await instance.orders.create({
+      amount: 50000, // ₹500.00 (amount is in paise)
+      currency: "INR",
+      receipt: "receipt#1",
+      notes: {
+        key1: "value3",
+        key2: "value2",
+      },
+    });
 
-  
-
-})
+    res.status(200).json(order);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Unable to create order",
+    });
+  }
+});
 
 mongoose
   .connect(process.env.URI)
