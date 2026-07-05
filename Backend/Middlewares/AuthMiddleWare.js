@@ -16,7 +16,7 @@ const AuthMiddleware = (req, res, next) => {
       process.env.access_token_secret
     );
 
-    req.user = decoded; // { id: ... }
+    req.user = decoded;
 
     next();
   } catch (err) {

@@ -11,6 +11,7 @@ import Cart from "../Components/Cart.jsx";
 import Detail from "../Components/Detail.jsx";
 import Login from "../Auth/Login.jsx";
 import Signup from "../Auth/Signup.jsx";
+import Razorpay from "../Components/Razorpay.jsx";
 import './App.css'
 import "./index.css";
 import Shop from "../Components/Shop.jsx";
@@ -30,6 +31,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/login" element={<Login></Login>}/>
         <Route path="/cart" element={<Cart></Cart>}></Route>
         <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route path="/razorpay" element={<Razorpay></Razorpay>}></Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

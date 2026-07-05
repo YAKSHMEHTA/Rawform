@@ -185,7 +185,9 @@ app.post("/refresh", async (req, res) => {
     const storedRefreshToken = user.refreshtoken;
 
     if (token !== storedRefreshToken) {
-      return res.json({ msg: "refreshToken does not meet" });
+      return res.status(401).json({
+        message: "Invalid refresh token",
+      });
     }
 
     const newRefreshToken = createRefreshToken(userid);
@@ -213,10 +215,15 @@ app.post("/refresh", async (req, res) => {
   }
 });
 
+app.post("v1/verify",async(req,res)=>{
+
+})
+
 app.post("/v1/order", async (req, res) => {
+  const {cost} = req.body;
   try {
     const order = await instance.orders.create({
-      amount: 50000, // ₹500.00 (amount is in paise)
+      amount: cost*100, // ₹500.00 (amount is in paise)
       currency: "INR",
       receipt: "receipt#1",
       notes: {

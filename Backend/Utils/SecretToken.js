@@ -9,7 +9,7 @@ export const createAccessToken = (id) =>{
 }
 
 export const createRefreshToken = (id) =>{
-    return jwt.sign({id},process.env.access_token_secret,{
+    return jwt.sign({id},process.env.refresh_token_secret,{
         expiresIn:3*24*60*60
     })
 }
