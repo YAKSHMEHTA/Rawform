@@ -1,10 +1,12 @@
 import express from "express";
 import mongodb from "mongodb";
 import mongoose from "mongoose";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import OrderModel from "./Schema/orderSchema.js";
 import Usermodel from "./Schema/Schema.js";
 import ProductModel from "./Schema/productSchema.js";
 import AuthMiddleware from "./Middlewares/AuthMiddleWare.js";
@@ -13,9 +15,11 @@ import authRoute from "./Routes/AuthRoute.js";
 import { createAccessToken, createRefreshToken } from "./Utils/SecretToken.js";
 import { decode } from "jsonwebtoken";
 import productSchema from "./Schema/productSchema.js";
+
 const app = express();
 
 dotenv.config();
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -24,6 +28,7 @@ app.use(
     credentials: true,
   }),
 );
+
 app.use("/auth", authRoute);
 var instance = new Razorpay({
   key_id: process.env.razor_key,
@@ -215,27 +220,81 @@ app.post("/refresh", async (req, res) => {
   }
 });
 
-app.post("v1/verify",async(req,res)=>{
-
-})
-
-app.post("/v1/order", async (req, res) => {
-  const {cost} = req.body;
+app.post("v1/verify", async (req, res) => {
   try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+      req.body;
+
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(body.toString())
+      .digest("hex");
+
+    if (expectedSignature === razorpay_signature) {
+      return res.status(200).json({
+        success: true,
+        message: "Payment verified successfully",
+        paymentId: razorpay_payment_id,
+      });
+    }
+
+    return res.status(400).json({
+      success: false,
+      message: "Invalid payment signature",
+    });
+  } catch (e) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Verification failed",
+    });
+  }
+});
+
+app.post("/v1/order", AuthMiddleware, async (req, res) => {
+  try {
+    const { cost } = req.body;
+
+    const userId = req.user.id;
+
+    const user = await Usermodel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
     const order = await instance.orders.create({
-      amount: cost*100, // ₹500.00 (amount is in paise)
+      amount: cost * 100, // amount in paise
       currency: "INR",
-      receipt: "receipt#1",
+      receipt: `receipt_${Date.now()}`,
       notes: {
-        key1: "value3",
-        key2: "value2",
+        userId,
       },
     });
 
-    res.status(200).json(order);
+    const newOrder = await OrderModel.create({
+      userId,
+      products: user.cart,
+      totalAmount: cost ,
+      paymentStatus: "pending",
+      orderStatus: "placed",
+      razorpayOrderId: order.id, // Razorpay Order ID
+      razorpayPaymentId: null, // Will be updated after payment verification
+    });
+
+    return res.status(200).json({
+      success: true,
+      order,
+      dbOrder: newOrder,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({
+
+    return res.status(500).json({
       success: false,
       message: "Unable to create order",
     });

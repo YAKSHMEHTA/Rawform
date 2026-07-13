@@ -15,7 +15,7 @@ function Cart() {
   const handelPayment = async () => {
     try{
       console.log("clicked")
-      const {data:order} = await axios.post("http://localhost:8080/v1/order",{cost})
+      const {data:order} = await axios.post("http://localhost:8080/v1/order",{cost},{withCredentials:true},)
       const options = {
         key: "rzp_test_T7vXx1kI5pPbnn", // Public Key
         amount: order.amount,
@@ -36,7 +36,7 @@ function Cart() {
           */
 
           // Send these to backend for signature verification
-          await axios.post("http://localhost:3000/v1/verify", response);
+          await axios.post("http://localhost:3000/v1/verify",{withCredentials:true}, response);
         },
 
         prefill: {
