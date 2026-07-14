@@ -13,16 +13,25 @@ function Cart() {
   const [change, setChange] = useState(false);
 
   const handelPayment = async () => {
-    try{
-      console.log("clicked")
-      const {data:order} = await axios.post("http://localhost:8080/v1/order",{cost},{withCredentials:true},)
+    try {
+      console.log("clicked");
+      const { data } = await axios.post(
+        "http://localhost:8080/v1/order",
+        { cost },
+        { withCredentials: true },
+      );
+      console.log("Backend Response:", data);
+
+      const razorOrder = data.order;
+
+      console.log("Razor Order:", razorOrder);
       const options = {
         key: "rzp_test_T7vXx1kI5pPbnn", // Public Key
-        amount: order.amount,
-        currency: order.currency,
+        amount: razorOrder.amount,
+        currency: razorOrder.currency,
         name: "My Store",
         description: "Test Transaction",
-        order_id: order.id,
+        order_id: razorOrder.id,
 
         handler: async function (response) {
           console.log(response);
@@ -36,7 +45,17 @@ function Cart() {
           */
 
           // Send these to backend for signature verification
-          await axios.post("http://localhost:3000/v1/verify",{withCredentials:true}, response);
+          const { data } = await axios.post(
+            "http://localhost:8080/v1/verify",
+            {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            },
+            { withCredentials: true },
+          );
+          console.log("response", data);
+          console.log("data", data);
         },
 
         prefill: {
@@ -48,13 +67,11 @@ function Cart() {
         theme: {
           color: "#3399cc",
         },
-      }
-     const razor = new window.Razorpay(options);
-     razor.open();
-    }catch(e){
-
-    }
-  }
+      };
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (e) {}
+  };
 
   useEffect(() => {
     const fetchData = async () => {

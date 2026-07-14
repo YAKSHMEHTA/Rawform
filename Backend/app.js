@@ -220,18 +220,63 @@ app.post("/refresh", async (req, res) => {
   }
 });
 
-app.post("v1/verify", async (req, res) => {
+app.post("/v1/verify", async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-      req.body;
+    console.log("========== PAYMENT VERIFICATION START ==========");
+
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+    } = req.body;
+
+    console.log("Received Data:");
+    console.log("Order ID:", razorpay_order_id);
+    console.log("Payment ID:", razorpay_payment_id);
+    console.log("Signature:", razorpay_signature);
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
+
     const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-      .update(body.toString())
+      .createHmac("sha256", process.env.razor_secret)
+      .update(body)
       .digest("hex");
 
+    console.log("Expected Signature:", expectedSignature);
+
     if (expectedSignature === razorpay_signature) {
+      console.log("✅ Signature Verified");
+
+      const order = await OrderModel.findOneAndUpdate(
+        { razorpayOrderId: razorpay_order_id },
+        {
+          paymentStatus: "paid",
+          razorpayPaymentId: razorpay_payment_id,
+        },
+        { new: true }
+      );
+
+      console.log("Updated Order:");
+      console.log(order);
+
+      if (!order) {
+        console.log("❌ Order not found in database");
+
+        return res.status(404).json({
+          success: false,
+          message: "Order not found",
+        });
+      }
+
+      await Usermodel.findByIdAndUpdate(order.userId, {
+        $set: {
+          cart: [],
+        },
+      });
+
+      console.log("✅ User cart cleared");
+      console.log("========== PAYMENT VERIFIED ==========");
+
       return res.status(200).json({
         success: true,
         message: "Payment verified successfully",
@@ -239,13 +284,19 @@ app.post("v1/verify", async (req, res) => {
       });
     }
 
+    console.log("❌ Signature Mismatch");
+    console.log("Received :", razorpay_signature);
+    console.log("Expected :", expectedSignature);
+
     return res.status(400).json({
       success: false,
       message: "Invalid payment signature",
     });
   } catch (e) {
-    console.error(err);
-    res.status(500).json({
+    console.error("❌ Verification Error:");
+    console.error(e);
+
+    return res.status(500).json({
       success: false,
       message: "Verification failed",
     });
