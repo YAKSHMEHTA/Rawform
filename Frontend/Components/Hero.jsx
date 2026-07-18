@@ -10,12 +10,17 @@ import Footer from "../src/Footer";
 gsap.registerPlugin(ScrollTrigger);
 
 function Hero() {
+
   const scrollImgRef = useRef(null);
   const whiteRef = useRef(null);
-
-
+  const bgImage = window.innerWidth < 768 ? "/heroSm.png" : "/BGHEROIMG.jpg";
+  const defaultImg = "/BGHEROIMG.jpg";
+  const defaultMask = "/rawform-mask.png";
+  const heroSmall = "/heroSm.png";
+  const heroLarge = "/heroLg.png";
 
   useEffect(() => {
+    const mm = gsap.matchMedia();
     let ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -71,7 +76,7 @@ function Hero() {
       <div className="relative  size-min:w-full ">
         <div className="hero relative h-screen w-full  overflow-hidden">
           <img
-            src="/BGHEROIMG.jpg"
+            src={`${bgImage}`}
             className="absolute inset-0 w-full h-full object-cover"
             style={{ zIndex: 1 }}
           />
@@ -81,7 +86,7 @@ function Hero() {
             className="absolute  inset-0 w-full   h-full"
             style={{
               zIndex: 2,
-              backgroundImage: `url('/BGHEROIMG.jpg')`,
+              backgroundImage: `url(${bgImage})`,
               backgroundSize: "100%",
               backfaceVisibility: false,
               backgroundPosition: "center 50%",

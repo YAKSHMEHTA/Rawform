@@ -10,10 +10,15 @@ function Cart() {
   const [pdata, setPdata] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cost, setCost] = useState(0);
+  const [paying,setPaying] = useState(false);
   const [change, setChange] = useState(false);
 
   const handelPayment = async () => {
     try {
+      setTimeout(() => {
+        setPaying(prev => !prev);
+      }, 200);
+      
       console.log("clicked");
       const { data } = await axios.post(
         "http://localhost:8080/v1/order",
@@ -26,7 +31,7 @@ function Cart() {
 
       console.log("Razor Order:", razorOrder);
       const options = {
-        key: "rzp_test_T7vXx1kI5pPbnn", // Public Key
+        key: "rzp_test_T7vXx1kI5pPbnn", 
         amount: razorOrder.amount,
         currency: razorOrder.currency,
         name: "My Store",
@@ -54,6 +59,7 @@ function Cart() {
             },
             { withCredentials: true },
           );
+          setPaying(prev => !prev);
           console.log("response", data);
           console.log("data", data);
         },
@@ -91,7 +97,7 @@ function Cart() {
     };
 
     fetchData();
-  }, [change]);
+  }, [change,paying]);
 
   console.log(cart);
   console.log("pdata", pdata);
