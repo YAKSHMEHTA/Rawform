@@ -2,7 +2,7 @@ import "../src/App.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import BuyNow from "./BuyNow";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Text from "./Text";
 import Demo from "./Demo";
 import Lenis from "@studio-freight/lenis";
@@ -10,17 +10,20 @@ import Footer from "../src/Footer";
 gsap.registerPlugin(ScrollTrigger);
 
 function Hero() {
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const scrollImgRef = useRef(null);
   const whiteRef = useRef(null);
-  const bgImage = window.innerWidth < 768 ? "/heroSm.png" : "/BGHEROIMG.jpg";
-  const defaultImg = "/BGHEROIMG.jpg";
-  const defaultMask = "/rawform-mask.png";
-  const heroSmall = "/heroSm.png";
-  const heroLarge = "/heroLg.png";
+  const bgImage = window.innerWidth <= 768 ? "/heroSm.png" : "/BGHEROIMG.jpg";
+  const maskImg = window.innerWidth >= 768 ? "/rawform-mask.png" : "/maskRa.png";
 
   useEffect(() => {
-    const mm = gsap.matchMedia();
+    const resize = () => setIsMobile(window.innerWidth <= 768);
+
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, [isMobile]);
+
+  useEffect(() => {
     let ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -69,7 +72,7 @@ function Hero() {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <>
@@ -90,11 +93,11 @@ function Hero() {
               backgroundSize: "100%",
               backfaceVisibility: false,
               backgroundPosition: "center 50%",
-              WebkitMaskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
-              WebkitMaskComposite: "sin",
+              WebkitMaskImage: `url(${maskImg}), linear-gradient(black, black)`,
+              WebkitMaskComposite: "xor",
               WebkitMaskSize: "cover",
               WebkitMaskPosition: "center",
-              maskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
+              maskImage: `url(${maskImg}), linear-gradient(black, black)`,
               maskComposite: "exclude",
               maskSize: "100%",
               maskPosition: "center",
@@ -106,7 +109,7 @@ function Hero() {
             style={{
               zIndex: 3,
               opacity: 0,
-              WebkitMaskImage: `url('/rawform-mask.png'), linear-gradient(black, black)`,
+              WebkitMaskImage: `url(${maskImg}), linear-gradient(black, black)`,
               maskComposite: "intersect",
               maskSize: "100%",
               maskPosition: "center",
