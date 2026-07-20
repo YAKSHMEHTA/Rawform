@@ -132,3 +132,11 @@ h1 {
   font-weight: 100;
   transform: uppercase;
 }
+
+.nav-mb{
+  font-family: "Mirtha Display";
+  font-weight:100;
+  font-size: 3.8rem;
+  line-height: 0.85;
+  transform-origin: top;
+}
