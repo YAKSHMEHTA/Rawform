@@ -46,15 +46,22 @@ function Navbar() {
 
   useEffect(() => {
     if (navOpen) {
+      const navbar = document.getElementsByClassName("nav-mb")[0];
+      navbar.style.display = "block";
+      console.log("nav - ",navbar)
       gsap.to(".nav-mb", {
         opacity: 0.99,
         duration: 0.4,
       });
-    } else {
+      
+    }else {
+      
       gsap.to(".nav-mb", {
         opacity: 0,
         duration: 0.4,
+        display:'none'
       });
+      
     }
   },[navOpen]);
 
