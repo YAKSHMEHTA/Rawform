@@ -44,36 +44,39 @@ function Shop() {
 
   
   return (
-    <div className="h-full w-full">
-      <div className="h-60 w-full flex justify-center items-end">
+    <div className="h-full shop w-full">
+      <div className="h-60 h2-cnt w-full flex justify-center items-end">
         <h2 className="text-9xl">Shop</h2>
       </div>
-      <div className="h-full w-full px-10  py-30">
+      <div className="h-full w-full px-10 p-cnt  py-30 sm:px-0 sm:py-0">
         {products.map((item, idx) => {
           return (
-            <div key={idx} className="h-full w-full grid grid-cols-2 grid-rows-3 gap-4">
+            <div key={idx} className="h-full card-cnt w-full grid grid-cols-2 grid-rows-3 gap-4">
+              <div className="h-220 c1 w-160 card">
               <Card
                 btn={false}
                 px={"-=500px"}
                 ani={true}
                 st={"top"}
-                classname={"h-220 w-160 row-span-3  overflow-clip"}
+                classname={"h-full w-full row-span-3  overflow-clip"}
                 imgSrc={products[idx].images[0]}
               />
-              <div className="py-20 flex flex-col gap-5">
+              </div>
+              <div className="py-20 flex text flex-col gap-5">
                 <h2 className="text-2xl">{products[idx].name}</h2>
                 <h2 className="" >{products[idx].description}</h2>
                 <Link to={`/shop/detail?slug=${products[idx].slug}`}  >  <Btn h={"4rem"} w={"16rem"} ></Btn> </Link>
               </div>
-
+              <div className="h-220 c2 w-160 card">
               <Card
                 btn={false}
                 px={"-=300px"}
                 ani={true}
                 st={"top"}
-                classname={"h-220 w-160 row-span-2 overflow-clip"}
+                classname={"h-full w-full row-span-2 overflow-clip"}
                 imgSrc={products[idx].images[1]}
               />
+              </div>
             </div>
           );
         })}
