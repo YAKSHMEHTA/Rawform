@@ -20,9 +20,11 @@ function Detail() {
   const slug = searchParams.get("slug");
   const [detail, setDetail] = useState({});
   const [imgurl, setImgUrl] = useState([]);
-  const [size,setSize] = useState("");
+  const [size, setSize] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const arr = [];
-  let productId = "" 
+  let productId = "";
+
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
@@ -125,17 +127,16 @@ function Detail() {
     e.preventDefault();
     const res = await axios.post(
       "http://localhost:8080/addtocart",
-      {slugg:slug,qty:qty,size:size},
+      { slugg: slug, qty: qty, size: size },
       { withCredentials: true },
     );
     console.log(res);
   };
 
-
   return (
     <>
       <div className="py-35 flex detail">
-        <div className="w-1/2" ref={containerRef}>
+        <div className="w-1/2 img-cnt" ref={containerRef}>
           {/* {detail.images[0]} */}
           {detail.images?.map((item, idx) => {
             return (
@@ -150,11 +151,15 @@ function Detail() {
             );
           })}
         </div>
-        <div className="w-1/2 px-40  py-5  ">
-          <div className="w-70 fixed  ">
-            <h3 className="uppercase">
-              DROP {detail.drop} THE {detail.name}
-            </h3>
+        <div className="w-1/2 px-40 details py-5  ">
+          <div className="w-70 fixed">
+            {isMobile === false ? (
+                    <h3 className="uppercase ">
+                      DROP {detail.drop} THE {detail.name}
+                    </h3>
+                  ) : (
+                    null
+                  )}
             <div className="flex flex-col gap-1 py-10">
               {arr.map((item, idx) => {
                 return (
@@ -192,7 +197,16 @@ function Detail() {
               })}
             </div>
             <div className="w-full ">
-              <p className="relative text-[0.65rem] -right-58">Quantity</p>
+              {isMobile ? (
+                    <h3 className="uppercase ">
+                      DROP {detail.drop} THE {detail.name}
+                    </h3>
+                  ) : (
+                    null
+                  )}
+                  <div className="w-full flex items-end justify-end  px-2">
+              <p className="relative text-[0.65rem] qty ">Quantity</p>
+              </div>
               <div className="w-full  flex justify-between items-center align-middle ">
                 <div className="pt-4">
                   <p className="font-[300] text-[1.2rem]">
@@ -237,25 +251,25 @@ function Detail() {
               <div className="flex justify-between items-center">
                 <p className="font-[300] text-[1.2rem]">Size</p>
                 <div className="">
-                  {['X','M','L'].map((item,idx)=>{
-                    return(
+                  {["X", "M", "L"].map((item, idx) => {
+                    return (
                       <button
-                      key={idx}
-                      onClick={()=> setSize(item)}
-                    className=""
-                    style={{
-                      height: "2rem",
-                      width: "2rem",
-                      border: "1px solid black",
-                    }}
-                  >
-                    {item}
-                  </button>
-                    )
+                        key={idx}
+                        onClick={() => setSize(item)}
+                        className=""
+                        style={{
+                          height: "2rem",
+                          width: "2rem",
+                          border: "1px solid black",
+                        }}
+                      >
+                        {item}
+                      </button>
+                    );
                   })}
                 </div>
               </div>
-              
+
               <div className="py-5">
                 <div onClick={handelAdd}>
                   <Btn h={"3rem"} w={"full"} text={"Add to Cart"}></Btn>
@@ -268,9 +282,6 @@ function Detail() {
           </div>
         </div>
       </div>
-      <div className="h-screen w-full bg-amber-400"></div>
-      <div className="h-screen w-full bg-cyan-700"></div>
-      <div className="h-screen w-full bg-red-700"></div>
     </>
   );
 }

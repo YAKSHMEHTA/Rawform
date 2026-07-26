@@ -67,7 +67,7 @@ function Navbar() {
 
   if (isMobile) {
     return (
-      <div className="h-screen fixed z-50 top-0 w-full">
+      <div className="h-screen navBar fixed z-50 top-0 w-full">
         <div className="flex justify-between h-14 w-full bg-white items-center px-4">
           <div className="">Yaksh</div>
           <div className="" onClick={onClickOpen}>
