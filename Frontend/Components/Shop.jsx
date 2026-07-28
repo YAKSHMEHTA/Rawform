@@ -45,14 +45,14 @@ function Shop() {
   return (
     <div className="h-full shop w-full">
       <div className="h-40 sm:h-60 h2-cnt w-full flex justify-center items-end">
-        <h2 className="text-5xl sm:text-7xl md:text-9xl">Shop</h2>
+        <h2 className=" sm:text-7xl md:text-9xl font-[Mirtha_Display] pt-54 text-[6rem]">Shop</h2>
       </div>
-      <div className="h-full w-full par-c px-10 p-cnt py-30 sm:px-0 sm:py-0">
+      <div className="h-full w-full par-c px-10 p-cnt py-40 sm:px-0 sm:py-0">
         {products.map((item, idx) => {
           return (
             <div
               key={idx}
-              className="h-full card-cnt w-full grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-3 gap-4"
+              className="h-full card-cnt w-full grid grid-cols-1  sm:grid-cols-2 sm:grid-rows-3 "
             >
               <div className={`c1 card ${isMobile ? '12rem' : 'w-full' } ${isMobile ? '31rem' : 'w-full' } sm:h-220 sm:w-160 sm:row-span-3`}>
                 <Card
@@ -65,15 +65,15 @@ function Shop() {
                 />
               </div>
 
-              <div className="text py-6 c3 sm:py-20 flex flex-col gap-5">
-                <h2 className="text-2xl">{item.name}</h2>
-                <h2>{item.description}</h2>
+              <div className="text py-6 c3 sm:py-20 flex flex-col  max-sm:items-center gap-5 ">
+                <h2 className="text-2xl max-sm:px-4 max-sm:leading-9 font-[Mirtha_Display] text-[3rem]">{item.name}</h2>
+                <h2 className="max-sm:h-19 max-sm:overflow-hidden max-sm:px-4 leading-4">{item.description}</h2>
                 <Link to={`/shop/detail?slug=${item.slug}`}>
-                  <Btn h={"4rem"} w={"16rem"} />
+                  <Btn h={`${isMobile ? '2.5rem':'4rem'}`} w={"16rem"} />
                 </Link>
               </div>
 
-              <div className="c2 card w-full h-auto sm:h-220 sm:w-160 sm:row-span-2">
+              <div className="c2 card w-full h-75 sm:h-220 sm:w-160 sm:row-span-2">
                 <Card
                   btn={false}
                   px={"-=300px"}

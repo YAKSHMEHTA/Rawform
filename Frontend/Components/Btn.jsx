@@ -23,7 +23,7 @@ function Btn({h,w,text}) {
   return (
     <>
         <button onMouseEnter={handelEnter} onMouseLeave={handelLeave} 
-        className="bg-black text-white  btn" id='btn' style={{height:h,width:w}} > {text || "view details"}</button>
+        className="bg-black text-white  btn" id='btn' style={{height:h,width:w}} > {text || "View Details"}</button>
     </>
   )
 }

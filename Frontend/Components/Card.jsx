@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -8,6 +8,7 @@ function Card({ classname = "", imgSrc, btn, ani, st, end ,px}) {
   const btnref = useRef(null);
   const parref = useRef(null)
   const imgRef = useRef(null);
+
   function HandelEnter() {
     gsap.to(imgRef.current, {
       scale: 1,
@@ -81,8 +82,8 @@ const thenVars =
       {btn && (
         <button
           ref={btnref}
-          className="bg-white absolute bottom-2/12 left-1/2 opacity-0 hover:bg-[#47d7ac]  -translate-x-1/2 z-50
-        w-63 h-13"
+          className={`bg-white absolute bottom-2/12 left-1/2 opacity-0 hover:bg-[#47d7ac]  -translate-x-1/2 z-50
+        w-63 h-13`}
         >
           BUY NOW
         </button>

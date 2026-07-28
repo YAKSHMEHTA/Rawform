@@ -117,7 +117,7 @@ h1 {
   .card-cnt {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+
   }
 
   .c1 {
@@ -175,6 +175,13 @@ h1 {
   .detail .qty{
     margin: 0;
     padding: 0;
+  }
+
+  .detail .info{
+    position: fixed;
+    background-color: white;
+    bottom: 0;
+    padding: 0 1rem 0 1rem;
   }
 
 }

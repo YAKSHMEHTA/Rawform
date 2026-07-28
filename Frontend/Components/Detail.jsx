@@ -13,6 +13,7 @@ function Detail() {
   const containerRef = useRef(null);
   const contentRef = useRef([]);
   const arrowRef = useRef([]);
+  const myRef = useRef(null);
   const [qty, setQty] = useState(1);
   const [bool, setBool] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -22,8 +23,14 @@ function Detail() {
   const [imgurl, setImgUrl] = useState([]);
   const [size, setSize] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [width, setWidth] = useState(window.innerWidth);
   const arr = [];
   let productId = "";
+  useEffect(() => {
+    console.log("myRef", myRef);
+    const rect = myRef.current.getBoundingClientRect();
+    console.log("myRef rect", rect.bottom);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,6 +117,32 @@ function Detail() {
     });
   }, [activeIndex]);
 
+  useEffect(() => {
+    const change = () => {
+      gsap.to(".info", {
+        position:'sticky',
+        duration:1,
+      });
+
+      const div2 = document.querySelector(".info");
+
+      // div2.style.position = "sticky";
+    };
+
+    gsap.to(".info", {
+      scrollTrigger: {
+        trigger: ".detail",
+        start: "top bottom",
+        onUpdate: (self) => {
+          console.log(self.progress);
+          if (self.progress >= 0.762) {
+            change();
+          }
+        },
+      },
+    });
+  }, []);
+
   const handelClick = (idx) => {
     setActiveIndex(activeIndex === idx ? null : idx);
   };
@@ -135,8 +168,8 @@ function Detail() {
 
   return (
     <>
-      <div className="py-35 flex detail">
-        <div className="w-1/2 img-cnt" ref={containerRef}>
+      <div className="py-35 flex  detail">
+        <div className="w-1/2 img-cnt relative h-[200vh]" ref={containerRef}>
           {/* {detail.images[0]} */}
           {detail.images?.map((item, idx) => {
             return (
@@ -152,21 +185,20 @@ function Detail() {
           })}
         </div>
         <div className="w-1/2 px-40 details py-5  ">
-          <div className="w-70 fixed">
+          <div className="w-full   ">
             {isMobile === false ? (
-                    <h3 className="uppercase ">
-                      DROP {detail.drop} THE {detail.name}
-                    </h3>
-                  ) : (
-                    null
-                  )}
-            <div className="flex flex-col gap-1 py-10">
+              <h3 className="uppercase ">
+                DROP {detail.drop} THE {detail.name}
+              </h3>
+            ) : null}
+            <div className="flex  flex-col px-5 gap-1 py-10">
               {arr.map((item, idx) => {
                 return (
                   <>
                     <div className="flex justify-between">
                       <p className="head  uppercase">{arr2[idx]}</p>
                       <button
+                        ref={myRef}
                         onClick={() => {
                           handelClick(idx);
                         }}
@@ -185,7 +217,7 @@ function Detail() {
                       </button>
                     </div>
                     <div
-                      className="cnt overflow-hidden"
+                      className="cnt overflow-hidden myDiv target"
                       ref={(el) => {
                         contentRef.current[idx] = el;
                       }}
@@ -196,18 +228,19 @@ function Detail() {
                 );
               })}
             </div>
-            <div className="w-full ">
+            <div
+              className={` info card w-full left-0 px-1 py-2 max-sm:px-0 max-sm:w-full `}
+              
+            >
               {isMobile ? (
-                    <h3 className="uppercase ">
-                      DROP {detail.drop} THE {detail.name}
-                    </h3>
-                  ) : (
-                    null
-                  )}
-                  <div className="w-full flex items-end justify-end  px-2">
-              <p className="relative text-[0.65rem] qty ">Quantity</p>
+                <h3 className="uppercase ">
+                  DROP {detail.drop} THE {detail.name}
+                </h3>
+              ) : null}
+              <div className="w-full flex items-end justify-end">
+                <p className="relative text-[0.65rem] qty ">Quantity</p>
               </div>
-              <div className="w-full  flex justify-between items-center align-middle ">
+              <div className="w-full  flex justify-between  items-center align-middle ">
                 <div className="pt-4">
                   <p className="font-[300] text-[1.2rem]">
                     ${qty * detail.price} USD
@@ -282,6 +315,7 @@ function Detail() {
           </div>
         </div>
       </div>
+      <div className="h-[200vh] w-full"></div>
     </>
   );
 }

@@ -34,7 +34,7 @@ function LineUP() {
           px={"+=1300px"}
           st={"bt"}
           ani={true}
-          classname={"h-full w-full overflow-clip"}
+          classname={"h-full w-full object-cover overflow-clip"}
           imgSrc={"/hr2.webp"}
         />
         </div>
