@@ -16,9 +16,11 @@ function LineUP() {
 
 
   return (
-    <div className="bg-white lineup-par pb-50  ">
-      <div className="h-[100vh] w-full relative lineup-cnt flex gap-2 pt-30 px-10 bg-white overflow-hidden">
-        <div className="Lineup-card h-120 w-120">
+    <div className="bg-white relative lineup-par pb-50  ">
+      <h2 className="bg-white px-5 pt-10 font">THE BIGGEST LINUP IN THE TOWN</h2>
+      <div className="h-[100vh] w-full lineup1 relative lineup-cnt flex gap-2 pt-8 px-10 bg-white overflow-hidden">
+        
+        <div className="Lineup-card h-full w-full">
         <Card
           btn={true}
           ani={true}
@@ -28,7 +30,7 @@ function LineUP() {
           imgSrc={"/hrpanel1.webp"}
         />
         </div>
-        <div className="Lineup-card h-120 w-120">
+        <div className="Lineup-card h-full w-full">
         <Card
           btn={true}
           px={"+=1300px"}
@@ -38,7 +40,7 @@ function LineUP() {
           imgSrc={"/hr2.webp"}
         />
         </div>
-        <div className="Lineup-card h-120 w-120">
+        <div className="Lineup-card h-full w-full">
         <Card
           btn={true}
           st={"top"}
@@ -48,7 +50,7 @@ function LineUP() {
           imgSrc={"/hrpanel2.webp"}
         />
         </div>
-        <div className="Lineup-card h-120 w-120">
+        <div className="Lineup-card h-full w-full">
         <Card
           btn={true}
           st={"bt"}

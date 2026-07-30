@@ -230,7 +230,6 @@ function Detail() {
             </div>
             <div
               className={` info card w-full left-0 px-1 py-2 max-sm:px-0 max-sm:w-full `}
-              
             >
               {isMobile ? (
                 <h3 className="uppercase ">
