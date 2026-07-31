@@ -222,7 +222,6 @@ app.post("/refresh", async (req, res) => {
 
 app.post("/v1/verify", async (req, res) => {
   try {
-    console.log("========== PAYMENT VERIFICATION START ==========");
 
     const {
       razorpay_order_id,
@@ -245,7 +244,6 @@ app.post("/v1/verify", async (req, res) => {
     console.log("Expected Signature:", expectedSignature);
 
     if (expectedSignature === razorpay_signature) {
-      console.log("✅ Signature Verified");
 
       const order = await OrderModel.findOneAndUpdate(
         { razorpayOrderId: razorpay_order_id },
@@ -256,11 +254,8 @@ app.post("/v1/verify", async (req, res) => {
         { new: true }
       );
 
-      console.log("Updated Order:");
-      console.log(order);
 
       if (!order) {
-        console.log("❌ Order not found in database");
 
         return res.status(404).json({
           success: false,
@@ -274,9 +269,6 @@ app.post("/v1/verify", async (req, res) => {
         },
       });
 
-      console.log("✅ User cart cleared");
-      console.log("========== PAYMENT VERIFIED ==========");
-
       return res.status(200).json({
         success: true,
         message: "Payment verified successfully",
@@ -284,21 +276,19 @@ app.post("/v1/verify", async (req, res) => {
       });
     }
 
-    console.log("❌ Signature Mismatch");
-    console.log("Received :", razorpay_signature);
-    console.log("Expected :", expectedSignature);
+
 
     return res.status(400).json({
       success: false,
       message: "Invalid payment signature",
     });
   } catch (e) {
-    console.error("❌ Verification Error:");
+    console.error("verification Error:");
     console.error(e);
 
     return res.status(500).json({
       success: false,
-      message: "Verification failed",
+      message: "verification failed",
     });
   }
 });
@@ -319,7 +309,7 @@ app.post("/v1/order", AuthMiddleware, async (req, res) => {
     }
 
     const order = await instance.orders.create({
-      amount: cost * 100, // amount in paise
+      amount: cost * 100,
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
       notes: {
@@ -333,8 +323,8 @@ app.post("/v1/order", AuthMiddleware, async (req, res) => {
       totalAmount: cost ,
       paymentStatus: "pending",
       orderStatus: "placed",
-      razorpayOrderId: order.id, // Razorpay Order ID
-      razorpayPaymentId: null, // Will be updated after payment verification
+      razorpayOrderId: order.id, 
+      razorpayPaymentId: null, 
     });
 
     return res.status(200).json({
