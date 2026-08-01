@@ -9,7 +9,7 @@ import Footer from './Footer'
 function App() {
 
   return (
-    <div>
+    <div className='relative'>
       <Hero></Hero>
       <Demo></Demo>
       <BuyNow></BuyNow>

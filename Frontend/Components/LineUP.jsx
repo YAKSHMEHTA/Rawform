@@ -120,13 +120,13 @@ function LineUP() {
           </div>
         </div>
       ) : (
-        <div className="w-full overflow-x-auto bg-white">
-        <div className="h-full flex gap-4 w-max py-4 px-4">
+        <div className="w-full overflow-x-auto scrollbar-hide  bg-white">
+        <div className="h-full flex gap-4 w-max scrollbar-hide py-4 px-4">
           {links[0].map((item, idx) => (
             <Card
               key={idx}
               imgSrc={item}
-              classname={"h-80 w-60 flex-shrink-0 overflow-clip"}
+              classname={"h-80 w-60 shrink-0 scrollbar-hide overflow-clip"}
             />
           ))}
         </div>

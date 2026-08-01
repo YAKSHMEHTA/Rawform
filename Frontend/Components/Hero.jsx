@@ -29,7 +29,8 @@ function Hero() {
         scrollTrigger: {
           trigger: ".hero",
           start: "top top",
-          end: "+=1800",
+          markers: true,
+          end: "+=800px",
           scrub: 0.5,
           pin: true,
         },
@@ -68,7 +69,7 @@ function Hero() {
         },
         "-=0.25",
       );
-      tl.fromTo(".cyan", { yPercent: 100 }, { yPercent: 0 });
+
     });
 
     return () => ctx.revert();
@@ -76,8 +77,8 @@ function Hero() {
 
   return (
     <>
-      <div className="relative  size-min:w-full ">
-        <div className="hero relative h-screen w-full  overflow-hidden">
+      <div className="w-full  size-min:w-full ">
+        <div className="hero  h-screen w-full  overflow-hidden">
           <img
             src={`${bgImage}`}
             className="absolute inset-0 w-full h-full object-cover"
@@ -86,7 +87,7 @@ function Hero() {
 
           <div
             ref={scrollImgRef}
-            className="absolute  inset-0 w-full   h-full"
+            className="absolute z-10  w-full   h-full"
             style={{
               zIndex: 2,
               backgroundImage: `url(${bgImage})`,

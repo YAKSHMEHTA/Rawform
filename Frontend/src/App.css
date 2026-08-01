@@ -231,3 +231,11 @@ h1 {
   line-height: 0.85;
   transform-origin: top;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  
+}

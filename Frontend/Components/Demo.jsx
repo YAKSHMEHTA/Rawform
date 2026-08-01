@@ -30,8 +30,8 @@ function Demo() {
         trigger: sliderRef.current,
         start: "50% bottom ",
         end: "50% top",
-        scrub: 1.5,
-      //  markers: true,
+        //scrub: 1.5,
+       markers: true,
       },
     });
 
@@ -52,7 +52,7 @@ function Demo() {
         ref={cRef}
         src="/arrow-right.svg"
         style={{
-          position: "fixed",
+          position: "absolute",
           top: 0,
           left: 0,
           width: "100px",
@@ -61,7 +61,7 @@ function Demo() {
           display: "none",
           pointerEvents: "none",
           transform: "translate(-50%, -50%)",
-          zIndex: 9999,
+          zIndex: 10,
         }}
       />
       <div
@@ -70,7 +70,7 @@ function Demo() {
         className="next h-[120vh] flex slider overflow-x-hidden fixed  overflow-y-clip left-0 w-full  bg-white items-center 
         justify-center text-white text-3xl"
       >
-        <div className="slider-2 py-2 gap-75   w-full flex">
+        <div className="slider-2 absolute z-10 py-2 gap-75    w-full flex">
           <img
             src="/himage-1.webp"
             alt=""

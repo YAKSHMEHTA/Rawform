@@ -137,7 +137,7 @@ function BuyNow() {
 
   return (
     <>
-      <div className="bg-white curted h-[110vh] relative overflow-hidden  w-full ">
+      <div className="bg-white curted h-[110vh]  overflow-hidden  w-full ">
         <div className="px-8 p-0 pi">Curated Pieces</div>
         <div className="flex h-full w-full">
           <div
