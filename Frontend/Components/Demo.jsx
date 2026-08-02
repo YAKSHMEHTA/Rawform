@@ -30,8 +30,8 @@ function Demo() {
         trigger: sliderRef.current,
         start: "50% bottom ",
         end: "50% top",
-        //scrub: 1.5,
-       markers: true,
+        scrub: 1.5,
+     //  markers: true,
       },
     });
 

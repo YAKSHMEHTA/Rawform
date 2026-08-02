@@ -29,7 +29,7 @@ function Hero() {
         scrollTrigger: {
           trigger: ".hero",
           start: "top top",
-          markers: true,
+        //  markers: true,
           end: "+=800px",
           scrub: 0.5,
           pin: true,
@@ -77,7 +77,7 @@ function Hero() {
 
   return (
     <>
-      <div className="w-full  size-min:w-full ">
+      <div className="w-full   size-min:w-full ">
         <div className="hero  h-screen w-full  overflow-hidden">
           <img
             src={`${bgImage}`}

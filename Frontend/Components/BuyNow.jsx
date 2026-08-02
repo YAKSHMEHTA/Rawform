@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 function BuyNow() {
   const img1 = useRef(null);
   const img2 = useRef(null);
+  const sectionRef = useRef(null);
   const btnLeft = useRef(null);
   const btnRight = useRef(null);
 
@@ -82,7 +83,10 @@ function BuyNow() {
     });
   };
 
-  useEffect(() => {
+useEffect(() => {
+  const ctx = gsap.context(() => {
+
+    // 1️⃣ Wrap reveal
     gsap.fromTo(
       ".wrap",
       {
@@ -92,35 +96,52 @@ function BuyNow() {
         clipPath: "inset(0 0 0% 0)",
         ease: "power4.in",
         duration: 1,
-        stagger:0.25,
+        stagger: 0.25,
+
         scrollTrigger: {
-          trigger: ".curted",
-//          markers: true,
-          start: "+=1800px center",
+          id: "WRAP",
+          trigger: sectionRef.current,
+          markers: true,
+          start: "top+=800 center",
         },
-      },
+      }
     );
 
+
+    // 2️⃣ Image movement
     gsap.fromTo(
       ".wrap img",
-      { y: -60 },
+      {
+        y: -60,
+      },
       {
         y: 0,
         ease: "power3.inOut",
+
         scrollTrigger: {
-          trigger: ".curted",
-          start: "+=1800px center",
-          end: "+=1800px top",
+          id: "IMAGE",
+          trigger: sectionRef.current,
+          markers: true,
+
+          start: "top+=800 center",
+          end: "top+=800 top",
+
           scrub: 1,
         },
-      },
+      }
     );
 
+
+    // 3️⃣ Padding animation
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: ".curted",
-        start: "+=1800px bottom",
-        end: "+=1800px top",
+        id: "PADDING",
+        trigger: sectionRef.current,
+        markers: true,
+
+        start: "top+=100 center",
+        end: "top+=800 top",
+
         scrub: 1,
       },
     });
@@ -129,21 +150,30 @@ function BuyNow() {
       paddingTop: "5rem",
       ease: "power1.out",
     });
+
     tl.to(".pi", {
       paddingTop: "1rem",
       ease: "power1.in",
     });
-  }, []);
+
+  }, sectionRef);
+
+  ScrollTrigger.refresh();
+
+  return () => {
+    ctx.revert();
+  };
+}, []);
 
   return (
-    <>
-      <div className="bg-white curted h-[110vh]  overflow-hidden  w-full ">
-        <div className="px-8 p-0 pi">Curated Pieces</div>
-        <div className="flex h-full w-full">
+    <div className="bg-white relative ">
+      <div ref={sectionRef} className="bg-white curted h-[110vh] relative overflow-hidden  w-full ">
+        <div className="px-8 p-0 bg-white pi">Curated Pieces</div>
+        <div className="flex bg-white h-full w-full">
           <div
             onMouseEnter={() => handelEnter(img1)}
             onMouseLeave={() => handelLeave(img1)}
-            className="h-full curtedimg-1 w-1/2 overflow-hidden relative  
+            className="h-full curtedimg-1 w-1/2 bg-white overflow-hidden   
             origin-top-right scale-110 cimg"
           >
             <div className="w-full h-full wrap  overflow-hidden">
@@ -168,7 +198,7 @@ function BuyNow() {
           <div
             onMouseEnter={() => handelEnter(img2)}
             onMouseLeave={() => handelLeave(img2)}
-            className="h-full  relative overflow-hidden w-1/2"
+            className="h-full  relative bg-white overflow-hidden w-1/2"
           >
             <div className="w-full h-full wrap  overflow-hidden">
               <img
@@ -195,7 +225,7 @@ function BuyNow() {
         </div>
         
       </div>
-    </>
+    </div>
     
   );
 }

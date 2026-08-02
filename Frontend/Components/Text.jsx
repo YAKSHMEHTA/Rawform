@@ -32,7 +32,7 @@ function Text() {
         scrollTrigger: {
 //          markers: true,
           trigger: ".texts",
-          start: "+=3500 60%",
+          start: "+=2300 60%",
           end: "bottom top",
         },
       });
