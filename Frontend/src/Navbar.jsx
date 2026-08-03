@@ -51,6 +51,7 @@ function Navbar() {
       console.log("nav - ",navbar)
       gsap.to(".nav-mb", {
         opacity: 0.99,
+        height: "100vh",
         duration: 0.4,
       });
       
@@ -67,7 +68,7 @@ function Navbar() {
 
   if (isMobile) {
     return (
-      <div className="h-screen navBar fixed z-50 top-0 w-full">
+      <div className=" navBar fixed z-40 top-0 w-full">
         <div className="flex justify-between h-14 w-full bg-white items-center px-4">
           <div className="">Yaksh</div>
           <div className="" onClick={onClickOpen}>

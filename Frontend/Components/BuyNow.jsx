@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
 import Text from "./Text";
@@ -12,6 +12,7 @@ function BuyNow() {
   const img2 = useRef(null);
   const sectionRef = useRef(null);
   const btnLeft = useRef(null);
+  const [scrollDone, setScrollDone] = useState(false);
   const btnRight = useRef(null);
 
   useEffect(() => {
@@ -83,11 +84,20 @@ function BuyNow() {
     });
   };
 
-useEffect(() => {
-  const ctx = gsap.context(() => {
+  useEffect(() => {
 
-    // 1️⃣ Wrap reveal
-    gsap.fromTo(
+    const ctx = gsap.context(() => {
+      
+      const tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+      //  markers: true,
+        id:"roll",
+        start: "top center",
+      },
+    });
+
+    tl2.fromTo(
       ".wrap",
       {
         clipPath: "inset(0 0 100% 0)",
@@ -97,78 +107,83 @@ useEffect(() => {
         ease: "power4.in",
         duration: 1,
         stagger: 0.25,
-
-        scrollTrigger: {
-          id: "WRAP",
-          trigger: sectionRef.current,
-          markers: true,
-          start: "top+=800 center",
-        },
-      }
-    );
-
-
-    // 2️⃣ Image movement
-    gsap.fromTo(
-      ".wrap img",
-      {
-        y: -60,
       },
-      {
-        y: 0,
-        ease: "power3.inOut",
-
-        scrollTrigger: {
-          id: "IMAGE",
-          trigger: sectionRef.current,
-          markers: true,
-
-          start: "top+=800 center",
-          end: "top+=800 top",
-
-          scrub: 1,
-        },
-      }
     );
 
+    tl2.fromTo(".wrap-img", {
+      y: -60,
+    }, {
+      y: 1,
+      duration: 1.6,
+      ease: "power3.inOut",
+    });
 
-    // 3️⃣ Padding animation
+    // this is bullshit
+    // gsap.fromTo(
+    //   ".wrap-img",
+    //   { y: -60 },
+    //   {
+    //     y: 0,
+    //     duration: 1.6,
+    //     ease: "power3.inOut",
+    //     scrollTrigger: {
+    //       trigger: sectionRef.current,
+    //       start: "top center",
+    //       end: "+=800px ",
+    //       scrub: 1,
+    //     },
+    //   },
+    // );    
+
     const tl = gsap.timeline({
       scrollTrigger: {
-        id: "PADDING",
         trigger: sectionRef.current,
         markers: true,
-
-        start: "top+=100 center",
-        end: "top+=800 top",
-
+        id: "padding",
+        start: "top 95%",
+        end:"top 50%",
         scrub: 1,
       },
     });
 
     tl.to(".pi", {
-      paddingTop: "5rem",
+      paddingTop: "4rem",
       ease: "power1.out",
     });
 
-    tl.to(".pi", {
+    const tl3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        markers: true,
+        id: "padding2",
+        start: "top 50%",
+        end:"top 2%",
+        scrub: 1,
+      },
+    });
+
+    tl3.to(".pi", {
       paddingTop: "1rem",
       ease: "power1.in",
     });
 
-  }, sectionRef);
+    
 
-  ScrollTrigger.refresh();
+    }, sectionRef);
 
-  return () => {
-    ctx.revert();
-  };
-}, []);
+    return () => ctx.revert();
+
+      
+    
+  }, []);
 
   return (
     <div className="bg-white relative ">
-      <div ref={sectionRef} className="bg-white curted h-[110vh] relative overflow-hidden  w-full ">
-        <div className="px-8 p-0 bg-white pi">Curated Pieces</div>
+      <div
+        ref={sectionRef} 
+        className="bg-white curted h-[110vh] relative overflow-hidden  w-full "
+      >
+        <div  className="px-8 p-0 bg-white pi">Curated Pieces</div>
         <div className="flex bg-white h-full w-full">
           <div
             onMouseEnter={() => handelEnter(img1)}
@@ -180,7 +195,7 @@ useEffect(() => {
               <img
                 ref={img1}
                 src="/hr1.webp"
-                className="h-full scale-110 w-full object-cover"
+                className="h-full scale-110 w-full wrap-img object-cover"
                 alt="w"
               />
             </div>
@@ -204,7 +219,7 @@ useEffect(() => {
               <img
                 ref={img2}
                 src="/hr2.webp"
-                className="h-full scale-110 w-full overflow-hidden object-cover origin-top-right "
+                className="h-full scale-110 w-full wrap-img overflow-hidden object-cover origin-top-right "
                 alt=""
               />
             </div>
@@ -223,10 +238,8 @@ useEffect(() => {
             </button>
           </div>
         </div>
-        
       </div>
     </div>
-    
   );
 }
 

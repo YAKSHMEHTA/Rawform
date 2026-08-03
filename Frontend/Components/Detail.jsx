@@ -141,9 +141,10 @@ function Detail() {
         },
       },
     });
-  }, []);
+  });
 
   const handelClick = (idx) => {
+    console.log("clicked ");
     setActiveIndex(activeIndex === idx ? null : idx);
   };
 
@@ -168,7 +169,7 @@ function Detail() {
 
   return (
     <>
-      <div className="py-35 flex  detail">
+      <div className="py-35 flex  z-50 detail">
         <div className="w-1/2 img-cnt relative h-[200vh]" ref={containerRef}>
           {/* {detail.images[0]} */}
           {detail.images?.map((item, idx) => {
@@ -177,7 +178,7 @@ function Detail() {
                 ref={(el) => (imgRefs.current[idx] = el)}
                 src={item}
                 key={idx}
-                className="w-full object-cover img"
+                className={`w-full  object-cover img`}
                 alt=""
                 style={{ clipPath: "(0 100% 0 0)" }}
               />
@@ -196,7 +197,7 @@ function Detail() {
                 return (
                   <>
                     <div className="flex justify-between">
-                      <p className="head  uppercase">{arr2[idx]}</p>
+                      <p onClick={() => {handelClick(idx)}} className="head hover:cursor-grabbing  uppercase">{arr2[idx]}</p>
                       <button
                         ref={myRef}
                         onClick={() => {
