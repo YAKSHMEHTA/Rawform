@@ -1,10 +1,13 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 import axios from "axios";
 import Card from "./Card";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function LineUP() {
-
-  const [detail,setDetail] = useState({});
+  const [detail, setDetail] = useState({});
 
   const links = [
     [
@@ -17,15 +20,43 @@ function LineUP() {
     ],
   ];
 
-  useEffect(()=>{
-    const getData  = async()=>{
-    const {data} = await axios.get("http://localhost:8080/shop?drop=2");
-    setDetail(data[0]);
-    console.log(detail);
-    console.log("data :",data);
-  }
-  getData();
-  },[])
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.get("http://localhost:8080/shop?drop=2");
+      setDetail(data[0]);
+      console.log(detail);
+      console.log("data :", data);
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".lineup-par",
+          markers: true,
+          id: "line",
+          start: "top 75%",
+
+        },
+      });
+
+      tl.fromTo(
+        ".Lineup-card",
+        {
+          clipPath: "inset(0 0 100% 0)",
+        },
+        {
+          clipPath: "inset(0 0 0% 0)",
+          ease: "power4.out",
+          duration: 1,
+          stagger: 0.25,
+        },
+      );
+    });
+    return () => ctx.revert();
+  },[]);
 
   const [widthSmall, setWidthSmall] = useState(
     window.innerWidth < 750 ? true : false,
@@ -36,11 +67,11 @@ function LineUP() {
       <h2 className="bg-white px-5 pt-11 font">
         THE BIGGEST LINUP IN THE TOWN
       </h2>
-      <div className="h-[100vh] w-full lineup1 relative lineup-cnt flex gap-2 pt-8 px-10 bg-white overflow-hidden">
+      <div className="h-[100vh] w-full lineup1 relative lineup-cnt flex gap-2 pt-8 px-10 bg-white max-2xl:h-125 overflow-hidden">
         <div className="Lineup-card h-full w-full">
           <Card
             btn={true}
-            ani={true}
+            ani={false}
             px={"+=300px"}
             st={"top"}
             classname={"h-full w-full overflow-clip"}
@@ -52,7 +83,7 @@ function LineUP() {
             btn={true}
             px={"+=300px"}
             st={"bt"}
-            ani={true}
+            ani={false}
             classname={"h-full w-full object-cover overflow-clip"}
             imgSrc={"/hr2.webp"}
           />
@@ -62,7 +93,7 @@ function LineUP() {
             btn={true}
             st={"top"}
             px={"+=300px"}
-            ani={true}
+            ani={false}
             classname={"h-full w-full overflow-clip"}
             imgSrc={"/hrpanel2.webp"}
           />
@@ -72,7 +103,7 @@ function LineUP() {
             btn={true}
             st={"bt"}
             px={"+=300px"}
-            ani={true}
+            ani={false}
             classname={"h-full w-full overflow-clip"}
             imgSrc={"/hrpanel3.webp"}
           />
@@ -121,16 +152,16 @@ function LineUP() {
         </div>
       ) : (
         <div className="w-full overflow-x-auto scrollbar-hide  bg-white">
-        <div className="h-full flex gap-4 w-max scrollbar-hide py-4 px-4">
-          {links[0].map((item, idx) => (
-            <Card
-              key={idx}
-              imgSrc={item}
-              classname={"h-80 w-60 shrink-0 scrollbar-hide overflow-clip"}
-            />
-          ))}
+          <div className="h-full flex gap-4 w-max scrollbar-hide py-4 px-4">
+            {links[0].map((item, idx) => (
+              <Card
+                key={idx}
+                imgSrc={item}
+                classname={"h-80 w-60 shrink-0 scrollbar-hide overflow-clip"}
+              />
+            ))}
+          </div>
         </div>
-      </div>
       )}
     </div>
   );

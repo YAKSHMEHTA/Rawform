@@ -110,10 +110,20 @@ function BuyNow() {
       },
     );
 
-    tl2.fromTo(".wrap-img", {
-      y: -60,
+    const tl4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+      //  markers: true,
+          scrub: 1,
+        id:"roll",
+        start: "top center",
+      },
+    });
+
+    tl4.fromTo(".wrap-img", {
+      y: -80,
     }, {
-      y: 1,
+      y: 0,
       duration: 1.6,
       ease: "power3.inOut",
     });
@@ -138,10 +148,10 @@ function BuyNow() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        markers: true,
+       // markers: true,
         id: "padding",
         start: "top 95%",
-        end:"top 50%",
+        end:"top 70%",
         scrub: 1,
       },
     });
@@ -156,7 +166,7 @@ function BuyNow() {
         trigger: sectionRef.current,
         markers: true,
         id: "padding2",
-        start: "top 50%",
+        start: "top 30%",
         end:"top 2%",
         scrub: 1,
       },

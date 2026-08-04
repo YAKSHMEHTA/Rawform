@@ -52,11 +52,11 @@ const thenVars =
         },
         {
           ...thenVars,
-          ease: "power2.inOut",
+          ease: "power2.out",
           duration: 1.2,
           scrollTrigger: {
             trigger: parref.current,
-            stagger:0.25,
+            stagger:1,
        //     markers:true,
             start: px,
           },
