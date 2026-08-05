@@ -14,6 +14,7 @@ function Hero() {
   const scrollImgRef = useRef(null);
   const whiteRef = useRef(null);
   const bgImage = window.innerWidth <= 768 ? "/heroSm.png" : "/BGHEROIMG.jpg";
+  const svg = '/Dlogo.svg'
   const maskImg = window.innerWidth >= 768 ? "/rawform-mask.png" : "/maskRa.png";
 
   useEffect(() => {

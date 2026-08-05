@@ -46,6 +46,7 @@ function LineUP() {
         ".Lineup-card",
         {
           clipPath: "inset(0 0 100% 0)",
+          transformOrigin:"top",
         },
         {
           clipPath: "inset(0 0 0% 0)",
@@ -53,7 +54,24 @@ function LineUP() {
           duration: 1,
           stagger: 0.25,
         },
+      )
+
+      const tl2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".lineup-par",
+          markers: true,
+          id: "line",
+          start: "top 50%",
+          end:"top top",
+          scrub:1.5,
+          },
+        },
       );
+      // tl2.fromTo(".card-img2",
+      //     {y:0},
+      //     {y:-80}
+      //   )
+
     });
     return () => ctx.revert();
   },[]);
@@ -68,23 +86,23 @@ function LineUP() {
         THE BIGGEST LINUP IN THE TOWN
       </h2>
       <div className="h-[100vh] w-full lineup1 relative lineup-cnt flex gap-2 pt-8 px-10 bg-white max-2xl:h-125 overflow-hidden">
-        <div className="Lineup-card h-full w-full">
+        <div className="Lineup-card overflow-hidden h-full w-full">
           <Card
             btn={true}
             ani={false}
             px={"+=300px"}
             st={"top"}
-            classname={"h-full w-full overflow-clip"}
+            classname={"h-full w-full card-img overflow-clip"}
             imgSrc={"/hrpanel1.webp"}
           />
         </div>
-        <div className="Lineup-card h-full w-full">
+        <div className="Lineup-card h-full overflow-clip w-full">
           <Card
             btn={true}
             px={"+=300px"}
             st={"bt"}
             ani={false}
-            classname={"h-full w-full object-cover overflow-clip"}
+            classname={"h-full w-full card-img object-cover overflow-clip"}
             imgSrc={"/hr2.webp"}
           />
         </div>
@@ -94,7 +112,7 @@ function LineUP() {
             st={"top"}
             px={"+=300px"}
             ani={false}
-            classname={"h-full w-full overflow-clip"}
+            classname={"h-full w-full card-img overflow-clip"}
             imgSrc={"/hrpanel2.webp"}
           />
         </div>
@@ -104,7 +122,7 @@ function LineUP() {
             st={"bt"}
             px={"+=300px"}
             ani={false}
-            classname={"h-full w-full overflow-clip"}
+            classname={"h-full w-full card-img overflow-clip"}
             imgSrc={"/hrpanel3.webp"}
           />
         </div>
@@ -138,7 +156,7 @@ function LineUP() {
                 return (
                   <Card
                     ani={true}
-                    px={"+=300px"}
+                    px={ idx <= 2 ? "+=10px" : "-=250px" }
                     st={idx % 2 === 0 ? "top" : "bottom"}
                     key={idx}
                     btn={false}

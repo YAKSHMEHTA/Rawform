@@ -44,11 +44,14 @@ const thenVars =
     ? { clipPath: "inset(0 0 0% 0)" }
     : { clipPath: "inset(0% 0 0 0)" };
   useEffect(() => {
-    if (ani === true) {
+
+    const ctx = gsap.context(()=>{
+
+      if (ani === true) {
       gsap.fromTo(
         imgRef.current,
         {
-          ...fromVars
+          ...fromVars,
         },
         {
           ...thenVars,
@@ -63,6 +66,9 @@ const thenVars =
         },
       );
     }
+    })
+    return ()=> ctx.revert();
+    
   });
 
   return (
@@ -75,7 +81,7 @@ const thenVars =
       <img
         ref={imgRef}
         src={imgSrc}
-        className="w-full h-full object-cover id scale-110"
+        className="w-full h-full object-cover card-img2 id scale-110"
         onMouseOver={HandelEnter}
         alt=""
       />
