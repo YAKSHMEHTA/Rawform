@@ -39,7 +39,7 @@ function Detail() {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:8080/shop/detail?slug=${slug}`
+        `https://rawform.onrender.com/shop/detail?slug=${slug}`
       );
 
       setDetail(data[0]);
@@ -169,7 +169,7 @@ function Detail() {
   const handelAdd = async (e) => {
     e.preventDefault();
     const res = await axios.post(
-      "http://localhost:8080/addtocart",
+      "https://rawform.onrender.com/addtocart",
       { slugg: slug, qty: qty, size: size },
       { withCredentials: true },
     );
@@ -189,12 +189,12 @@ function Detail() {
     detail.images?.map((item, idx) => (
       <div
         key={idx}
-        className="w-full h-80 overflow-hidden"
+        className="w-full h-70 min-xl:h-140 overflow-hidden"
       >
         <img
           ref={(el) => (imgRefs.current[idx] = el)}
           src={item}
-          className="w-full h-80 object-cover img"
+          className="w-full h-70  min-xl:h-140 object-cover img"
           alt=""
         />
       </div>

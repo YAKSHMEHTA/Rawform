@@ -22,7 +22,7 @@ function LineUP() {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get("http://localhost:8080/shop?drop=2");
+      const { data } = await axios.get("https://rawform.onrender.com/shop?drop=2");
       setDetail(data[0]);
       console.log(detail);
       console.log("data :", data);

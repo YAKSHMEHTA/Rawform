@@ -19,7 +19,7 @@ function Shop() {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        `http://localhost:8080/shop?drop=${drop}`,
+        `https://rawform.onrender.com/shop?drop=${drop}`,
       );
       setProducts(data);
     };
