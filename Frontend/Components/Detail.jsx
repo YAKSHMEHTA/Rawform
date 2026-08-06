@@ -9,6 +9,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function Detail() {
+  const [loading, setLoading] = useState(true);
   const imgRefs = useRef([]);
   const containerRef = useRef(null);
   const contentRef = useRef([]);
@@ -33,16 +34,24 @@ function Detail() {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+
       const { data } = await axios.get(
-        `http://localhost:8080/shop/detail?slug=${slug}`,
+        `http://localhost:8080/shop/detail?slug=${slug}`
       );
-      productId = data[0]._id;
+
       setDetail(data[0]);
       setImgUrl(data[0].images);
-    };
-    fetchData();
-  }, [slug]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
+}, [slug]);
 
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.8 });
@@ -172,18 +181,25 @@ function Detail() {
       <div className="py-35 flex  z-50 detail">
         <div className="w-1/2 img-cnt relative h-[200vh]" ref={containerRef}>
           {/* {detail.images[0]} */}
-          {detail.images?.map((item, idx) => {
-            return (
-              <img
-                ref={(el) => (imgRefs.current[idx] = el)}
-                src={item}
-                key={idx}
-                className={`w-full  object-cover img`}
-                alt=""
-                style={{ clipPath: "(0 100% 0 0)" }}
-              />
-            );
-          })}
+          {loading ? (
+
+      <div className="w-full h-[200vh] bg-black" />
+
+  ) : (
+    detail.images?.map((item, idx) => (
+      <div
+        key={idx}
+        className="w-full h-80 overflow-hidden"
+      >
+        <img
+          ref={(el) => (imgRefs.current[idx] = el)}
+          src={item}
+          className="w-full h-80 object-cover img"
+          alt=""
+        />
+      </div>
+    ))
+  )}
         </div>
         <div className="w-1/2 px-40 details py-5  ">
           <div className="w-full   ">

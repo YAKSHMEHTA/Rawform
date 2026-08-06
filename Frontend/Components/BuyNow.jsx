@@ -164,7 +164,7 @@ function BuyNow() {
     const tl3 = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        markers: true,
+  //      markers: true,
         id: "padding2",
         start: "top 30%",
         end:"top 2%",

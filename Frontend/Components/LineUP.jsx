@@ -35,7 +35,7 @@ function LineUP() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".lineup-par",
-          markers: true,
+       //   markers: true,
           id: "line",
           start: "top 75%",
 
@@ -59,7 +59,7 @@ function LineUP() {
       const tl2 = gsap.timeline({
         scrollTrigger: {
           trigger: ".lineup-par",
-          markers: true,
+        //  markers: true,
           id: "line",
           start: "top 50%",
           end:"top top",
