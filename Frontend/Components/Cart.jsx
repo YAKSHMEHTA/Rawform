@@ -21,7 +21,7 @@ function Cart() {
       
       console.log("clicked");
       const { data } = await axios.post(
-        "http://localhost:8080/v1/order",
+        "https://rawform.onrender.com/v1/order",
         { cost },
         { withCredentials: true },
       );
@@ -51,7 +51,7 @@ function Cart() {
 
           // Send these to backend for signature verification
           const { data } = await axios.post(
-            "http://localhost:8080/v1/verify",
+            "https://rawform.onrender.com/v1/verify",
             {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -81,7 +81,7 @@ function Cart() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await api.get("http://localhost:8080/cart", {
+      const { data } = await api.get("https://rawform.onrender.com/cart", {
         withCredentials: true,
       });
 

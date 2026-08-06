@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "https://rawform.onrender.com",
     withCredentials: true,
 })
 
@@ -18,7 +18,7 @@ api.interceptors.response.use(
 
       try {
         await axios.post(
-          "http://localhost:8080/refresh",
+          "https://rawform.onrender.com/refresh",
           {},
           { withCredentials: true }
         );

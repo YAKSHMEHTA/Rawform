@@ -39,7 +39,7 @@ function Detail() {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:8080/shop/detail?slug=${slug}`
+        `https://rawform.onrender.com/shop/detail?slug=${slug}`
       );
 
       setDetail(data[0]);
@@ -169,7 +169,7 @@ function Detail() {
   const handelAdd = async (e) => {
     e.preventDefault();
     const res = await axios.post(
-      "http://localhost:8080/addtocart",
+      "https://rawform.onrender.com/addtocart",
       { slugg: slug, qty: qty, size: size },
       { withCredentials: true },
     );
