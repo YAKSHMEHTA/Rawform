@@ -35,6 +35,10 @@ var instance = new Razorpay({
   key_secret: process.env.razor_secret,
 });
 
+app.get("/health",(req,res)=>{
+  res.json({msg:"Server is healthy"});
+})
+
 app.get("/", (req, res) => {
   res.send("This is home page");
 });
