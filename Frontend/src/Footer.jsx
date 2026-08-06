@@ -18,8 +18,8 @@ function Footer() {
         preload="auto"
       />
 
-      <div className="absolute inrfooter  h-full w-full py-20 px-20  top-0 left-0">
-        <div className="bg-white/20 backdrop-blur-lg border border-white/20 h-full w-full">
+      <div className="absolute inrfooter  h-full w-full py-20 px-20 flex  top-0 left-0">
+        <div className="bg-white/20 backdrop-blur-lg border  border-white/20 h-full w-full">
           <div className="w-full py-20 footerflex flex gap-20 px-20">
             <div className="drops">
               <h2 className=" text-4xl">DROPS</h2>

@@ -81,7 +81,7 @@ function LineUP() {
   );
 
   return (
-    <div className="bg-white relative lineup-par pb-50 w-full  ">
+    <div className="bg-white max-md:pb-0   relative lineup-par pb-50 w-full  ">
       <h2 className="bg-white px-5 pt-11 font">
         THE BIGGEST LINUP IN THE TOWN
       </h2>
@@ -128,7 +128,7 @@ function LineUP() {
         </div>
       </div>
       {!widthSmall ? (
-        <div className=" h-screen w-full bg-white mb-30">
+        <div className=" h-screen w-full bg-white mb-30 ">
           <div className="h-20 w-full relative overflow-hidden">
             <div className="h-full w-[50%] absolute top-0 left-0 bg-white flex items-center px-4">
               <h3 className="text-white font-bold">DROP EDITION</h3>
@@ -151,7 +151,7 @@ function LineUP() {
               />
             </div>
 
-            <div className="w-full   bg-white pl-10 mt-20 pr-10 grid gap-6 grid-cols-3 grid-rows-2 bg-white">
+            <div className="w-full    bg-white pl-10 mt-20 pr-10 grid gap-6 grid-cols-3 grid-rows-2 ">
               {links[0].map((element, idx) => {
                 return (
                   <Card
@@ -169,7 +169,7 @@ function LineUP() {
           </div>
         </div>
       ) : (
-        <div className="w-full overflow-x-auto scrollbar-hide  bg-white">
+        <div className="w-full  max-md:pb-10 max-md:pt-10 overflow-x-auto scrollbar-hide  bg-white">
           <div className="h-full flex gap-4 w-max scrollbar-hide py-4 px-4">
             {links[0].map((item, idx) => (
               <Card
