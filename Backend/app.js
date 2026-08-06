@@ -20,11 +20,13 @@ const app = express();
 
 dotenv.config();
 
+const allowdOrigin = ["https://rawform-psi.vercel.app","http://localhost:5173"];
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowdOrigin,
     credentials: true,
   }),
 );
