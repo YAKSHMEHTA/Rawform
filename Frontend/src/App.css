@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Mirtha Display";
+  src: url("../Fonts/MirthaDisplayRegular-s.p.5f301ef3.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC Whyte Unlicensed Trial";
+  src: url("../Fonts/ABCWhyte_Light_Trial-s.p.18e3ad94.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ABC Whyte Mono Unlicensed Trial";
+  src: url("../Fonts/ABCWhyteMonoUnlicensedTrial_Regular-s.p.b4ead1f5.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* .hero {
     position: relative;
     width: 100vw;
