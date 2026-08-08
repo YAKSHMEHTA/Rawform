@@ -133,7 +133,7 @@ function Navbar() {
       </div>
 
       <div className="flex gap-6">
-        <a href="">BAG</a>
+        <Link to="/cart">BAG</Link>
         <Link to="/profile">
           {" "}
           <a href="">PROFILE</a>{" "}

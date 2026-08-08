@@ -174,7 +174,7 @@ function BuyNow() {
 
     tl3.to(".pi", {
       paddingTop: "1rem",
-      ease: "power1.in",
+      ease: "power1.out",
     });
 
     

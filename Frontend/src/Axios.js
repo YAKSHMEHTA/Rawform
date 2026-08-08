@@ -24,6 +24,7 @@ api.interceptors.response.use(
         );
 
         return api(originalRequest);
+        window.location.hash = "/";
       } catch (e) {
         window.location.href = "/login";
         return Promise.reject(e);

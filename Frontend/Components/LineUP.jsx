@@ -8,6 +8,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 function LineUP() {
   const [detail, setDetail] = useState({});
+  const [drop1, setDrop1] = useState([]);
+  const [drop2, setDrop2] = useState([]);
+  const [dropNum, setDropNum] = useState(2);
+  const [drop, setDrop] = useState([]);
+
+  useEffect(() => {
+    const link1 = [
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780932092/vsardofmza1mxp3cvrq1.webp",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780932092/z5wpixe3erwacgxerdk2.webp",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780932092/mtbd3xz5dkxkvobowkzy.webp",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780932096/g6wuaw1nt2goaqrf5jgv.jpg",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780932094/zojxawhtuyaua84prbmm.webp",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780932095/oa4rdvc5hh8ngj3jmo2a.jpg",
+    ];
+    setDrop1(link1);
+    const link2 = [
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938591/cntd3ovjbt2bmhgboqg2.jpg",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938591/wjenr87vouder8fg0fc8.jpg",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938592/bvksebmivcnlj4dzirbq.jpg",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938592/lswztaadtzsazvk0u5z7.jpg",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938592/caawzp4dwuggzolxuefl.jpg",
+      "https://res.cloudinary.com/dpjbpxxv4/image/upload/v1780938592/b6gs2fyeenk0shr04ibf.jpg",
+    ];
+    setDrop2(link2);
+    setDrop(link1);
+    console.log("drop", drop);
+  }, []);
 
   const links = [
     [
@@ -22,9 +49,11 @@ function LineUP() {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get("https://rawform.onrender.com/shop?drop=2");
+      const { data } = await axios.get(
+        "https://rawform.onrender.com/shop?drop=2",
+      );
       setDetail(data[0]);
-      console.log(detail);
+
       console.log("data :", data);
     };
     getData();
@@ -35,10 +64,9 @@ function LineUP() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".lineup-par",
-       //   markers: true,
+          //   markers: true,
           id: "line",
           start: "top 75%",
-
         },
       });
 
@@ -46,7 +74,7 @@ function LineUP() {
         ".Lineup-card",
         {
           clipPath: "inset(0 0 100% 0)",
-          transformOrigin:"top",
+          transformOrigin: "top",
         },
         {
           clipPath: "inset(0 0 0% 0)",
@@ -54,27 +82,25 @@ function LineUP() {
           duration: 1,
           stagger: 0.25,
         },
-      )
+      );
 
       const tl2 = gsap.timeline({
         scrollTrigger: {
           trigger: ".lineup-par",
-        //  markers: true,
+          //  markers: true,
           id: "line",
           start: "top 50%",
-          end:"top top",
-          scrub:1.5,
-          },
+          end: "top top",
+          scrub: 1.5,
         },
-      );
+      });
       // tl2.fromTo(".card-img2",
       //     {y:0},
       //     {y:-80}
       //   )
-
     });
     return () => ctx.revert();
-  },[]);
+  }, []);
 
   const [widthSmall, setWidthSmall] = useState(
     window.innerWidth < 750 ? true : false,
@@ -137,26 +163,44 @@ function LineUP() {
               <h3 className="text-white font-bold">DROP EDITION</h3>
             </div>
           </div>
-
+          <div className="w-full flex justify-between px-15 items-center py-10">
+            <h2 className="font-[ABC_Whyte_Mono_Unlicensed_Trial] text-3xl">
+              DROP
+            </h2>
+            <div className="w-1/2 flex gap-10">
+              <button
+              onClick={()=>setDropNum(1)}
+                className={`font-[Mirtha_Display] cursor-pointer ${dropNum == 1 ? "text-[#47d7ac]" : "text-black"}  text-5xl`}
+              >
+                01
+              </button>
+              <button
+              onClick={()=>setDropNum(2)}
+                className={`font-[Mirtha_Display] cursor-pointer ${dropNum == 2 ? "text-[#47d7ac]" : "text-black"}  text-5xl`}
+              >
+                02
+              </button>
+            </div>
+          </div>
           <div className=" pb-70 w-full bg-white flex relative">
             <div className="flex pl-10  ">
               <Card
                 btn={true}
-                px={"+=300px"}
+                px={"-=600px"}
                 ani={true}
                 st={"top"}
                 end={"bottom"}
                 classname={"h-200 w-160 overflow-clip"}
-                imgSrc={"/hrpanel1.webp"}
+                imgSrc={ dropNum == 1 ?  "/hrpanel1.webp" : "https://cdn.shopify.com/s/files/1/0692/0214/9630/files/071225_DROP_EDITION_Look_12_1388_horizontal_1600x.jpg?v=1765893231"}
               />
             </div>
 
             <div className="w-full    bg-white pl-10 mt-20 pr-10 grid gap-6 grid-cols-3 grid-rows-2 ">
-              {links[0].map((element, idx) => {
+              {(dropNum == 1 ? drop1:drop2).map((element, idx) => {
                 return (
                   <Card
-                    ani={true}
-                    px={ idx <= 2 ? "+=10px" : "-=250px" }
+                    ani={false}
+                    px={"-=250px"}
                     st={idx % 2 === 0 ? "top" : "bottom"}
                     key={idx}
                     btn={false}
