@@ -18,14 +18,16 @@ function Load(props) {
       tl.from(".stair", {
         height: 0,
         stagger: {
-          amount: -0.55,
+          amount: 0.75,
         },
+        ease: "sine.inOut"
       });
       tl.to(".stair", {
         y: "100%",
         stagger: {
-          amount: -0.55,
+          amount: 0.75,
         },
+       ease: "sine.inOut"
       });
 
       tl.to(parRef.current, {
@@ -34,11 +36,13 @@ function Load(props) {
 
       tl.to(".stair", {
         y: "0%",
+       ease: "sine.inOut"
       });
       gsap.from(pageRef.current,{
         opacity:0,
-        delay:1.4,
+        delay:1.65,
     })
+
     },
     
     [currentPath],

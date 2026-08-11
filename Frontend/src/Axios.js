@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://rawform.onrender.com",
+    baseURL: "http://localhost:8080",
     withCredentials: true,
 })
 
@@ -18,12 +18,13 @@ api.interceptors.response.use(
 
       try {
         await axios.post(
-          "https://rawform.onrender.com/refresh",
+          "http://localhost:8080/refresh",
           {},
           { withCredentials: true }
         );
 
         return api(originalRequest);
+        window.location.hash = "/";
       } catch (e) {
         window.location.href = "/login";
         return Promise.reject(e);

@@ -15,6 +15,7 @@ export const Signup = async(req,res,next)=>{
         const user = await Usermodel.create({
             name,email,password:hashedpassword,Timestamp:true
         })
+
         return  res.json({msg:"user created"});;
     }catch(e){
         console.log("error :", e)
@@ -46,12 +47,14 @@ export const Login = async(req,res) =>{
     console.log("access token : ",accessToken)
     console.log("logged in")
     res.cookie("token",accessToken,{
-        secure: false,
-        sameSite: "strict",
+        secure: true,
+        httpOnly: true,
+        sameSite: "none",
     })
     res.cookie("refreshtoken",refreshToken,{
-        secure:false,
-        sameSite:"strict",
+        secure:true,
+        httpOnly: true,
+        sameSite:"none",
     })
     await isUser.save();
     return res.send("logged in");

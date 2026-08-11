@@ -24,8 +24,8 @@ function Footer() {
             <div className="drops">
               <h2 className=" text-4xl">DROPS</h2>
               <div className="w-full pt-10 gap-4 flex flex-col ">
-                <a href="">Drop 6</a>
-                <a href="">Drop 6</a>
+                <a href="">Drop 01</a>
+                <a href="">Drop 02</a>
               </div>
             </div>
             <div className="STORES">
@@ -52,16 +52,14 @@ function Footer() {
                     This website is a personal educational and reverse
                     engineering project created solely for learning,
                     experimentation, and development practice. It is not a real
-                    eCommerce platform and does not process actual orders,
-                    payments, or commercial transactions.
+                    eCommerce platform,
                   </p>
                 </b>
                 <b>
                   <p>
                     Any products, prices, payment pages, or checkout flows
                     displayed on this website are for demonstration purposes
-                    only. Please do not attempt to make real purchases or submit
-                    sensitive financial information.
+                    only. Please do not submit sensitive financial information.
                   </p>
                 </b>
                 <b>
