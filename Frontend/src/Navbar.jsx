@@ -109,10 +109,10 @@ function Navbar() {
      items-center z-10 size-max:bg-red-800"
     >
       <div>
-        <a href="">YAKSH</a>
+        <a className="text-5xl  font-[Mirtha_Display]" href="/">RAW FORM</a>
       </div>
 
-      <div className="flex gap-15 relative">
+      <div className="flex gap-15 relative text-[0.8rem] font-bold font-[ABC_Whyte_Unlicensed_Trial]">
         <Link onMouseOver={handelShop} className="" to="/shop/2">
           SHOP
         </Link>

@@ -35,6 +35,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/cart" element={<Cart></Cart>}></Route>
           <Route path="/profile" element={<Profile></Profile>}></Route>
           <Route path="/razorpay" element={<Razorpay></Razorpay>}></Route>
+          <Route path="/Signup" element={Signup} ></Route>
         </Routes>
       </Load>
     </BrowserRouter>
