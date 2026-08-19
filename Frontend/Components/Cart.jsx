@@ -106,7 +106,7 @@ function Cart() {
     console.log("pid", pid);
     console.log("idx", idx);
     const data = await api.post(
-      "/inc",
+      "https://rawform.onrender.com/inc",
       { id: pid, idx: idx, bool: bool, remove: remove },
       { withCredentials: true },
     );
