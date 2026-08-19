@@ -15,6 +15,11 @@ function Login() {
         { withCredentials: true }
     );
     console.log("wasd",res);
+    if(res.status == 200){
+      window.location.href = "/"; 
+
+      
+    }
   };
 
   const handleOnChange = (e) => {
