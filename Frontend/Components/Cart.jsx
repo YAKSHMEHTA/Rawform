@@ -49,7 +49,7 @@ function Cart() {
           }
           */
 
-          // Send these to backend for signature verification
+
           const { data } = await axios.post(
             "https://rawform.onrender.com/v1/verify",
             {
